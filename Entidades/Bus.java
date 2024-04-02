@@ -17,18 +17,7 @@ public class Bus {
 
     public boolean contains(Persona p) {
         for (int i = 0; i < this.personas.length; i++) {
-            if (this.personas[i] == null || this.personas[i].equals(p)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean addPasajero(Persona p) {
-        for (int i = 0; i < this.personas.length; i++) {
-            if (this.personas[i] == null) {
-                this.personas[i] = p;
-                this.pasajeros++;
+            if (this.personas[i] != null && this.personas[i].equals(p)) {
                 return true;
             }
         }
@@ -36,7 +25,7 @@ public class Bus {
     }
 
     public boolean addPasajeroAt(int index, Persona p) {
-        if (index < this.personas.length && this.personas[index] == null) {
+        if (index < this.personas.length && index >= 0 && this.personas[index] == null && !contains(p)) {
             this.personas[index] = p;
             this.pasajeros++;
             return true;
