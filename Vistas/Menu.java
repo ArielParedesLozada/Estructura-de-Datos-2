@@ -1,7 +1,16 @@
 package Vistas;
 
-public class Menu extends javax.swing.JFrame {
+import Cooperativa.GestorDatos;
 
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+/**
+ *
+ * @author Elkinnn
+ */
+public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
@@ -19,88 +28,88 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jPnl0 = new javax.swing.JPanel();
+        jLblMenu = new javax.swing.JLabel();
+        jBtnBuses = new javax.swing.JButton();
+        jBtnBoletos = new javax.swing.JButton();
+        jBtnSalidas = new javax.swing.JButton();
+        jBtnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setForeground(new java.awt.Color(204, 204, 204));
+        jPnl0.setBackground(new java.awt.Color(204, 204, 204));
+        jPnl0.setForeground(new java.awt.Color(204, 204, 204));
 
-        jLabel1.setFont(new java.awt.Font("Imprint MT Shadow", 1, 48)); // NOI18N
-        jLabel1.setText("MENU PRINCIPAL");
+        jLblMenu.setFont(new java.awt.Font("Imprint MT Shadow", 1, 48)); // NOI18N
+        jLblMenu.setText("MENU PRINCIPAL");
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("Imagenes/iconovh.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnBuses.setBackground(new java.awt.Color(204, 204, 255));
+        jBtnBuses.setIcon(new javax.swing.ImageIcon(getClass().getResource("Imagenes/iconovh.png"))); // NOI18N
+        jBtnBuses.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtnBusesActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("Imagenes/iconovs.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBtnBoletos.setBackground(new java.awt.Color(204, 204, 255));
+        jBtnBoletos.setIcon(new javax.swing.ImageIcon(getClass().getResource("Imagenes/iconovs.png"))); // NOI18N
+        jBtnBoletos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBtnBoletosActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(204, 204, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("Imagenes/iconovj.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jBtnSalidas.setBackground(new java.awt.Color(204, 204, 255));
+        jBtnSalidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("Imagenes/iconovj.png"))); // NOI18N
+        jBtnSalidas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jBtnSalidasActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 204));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("Imagenes/EXIT.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jBtnSalir.setBackground(new java.awt.Color(255, 255, 204));
+        jBtnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("Imagenes/EXIT.png"))); // NOI18N
+        jBtnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jBtnSalirActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPnl0Layout = new javax.swing.GroupLayout(jPnl0);
+        jPnl0.setLayout(jPnl0Layout);
+        jPnl0Layout.setHorizontalGroup(
+            jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPnl0Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton4)
+                .addComponent(jBtnSalir)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(jLblMenu)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(jPnl0Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtnBuses, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtnBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtnSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        jPnl0Layout.setVerticalGroup(
+            jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPnl0Layout.createSequentialGroup()
+                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPnl0Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBtnSalir))
+                    .addGroup(jPnl0Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLblMenu)))
                 .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtnSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnBuses, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -109,38 +118,38 @@ public class Menu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPnl0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPnl0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>                        
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jBtnBusesActionPerformed(java.awt.event.ActionEvent evt) {                                          
         MenuBuses mb = new MenuBuses();
         mb.setVisible(true);
-        this.dispose();;
-    }                                        
+        this.dispose();
+    }                                         
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jBtnBoletosActionPerformed(java.awt.event.ActionEvent evt) {                                            
         MenuUsuarios mu = new MenuUsuarios();
         mu.setVisible(true);
-        this.dispose();;
-    }                                        
+        this.dispose();
+    }                                           
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jBtnSalidasActionPerformed(java.awt.event.ActionEvent evt) {                                            
         MenuViajes mv = new MenuViajes();
         mv.setVisible(true);
         this.dispose();;
-    }                                        
+    }                                           
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jBtnSalirActionPerformed(java.awt.event.ActionEvent evt) {                                          
         System.exit(0);
-    }                                        
+    }                                         
 
     /**
      * @param args the command line arguments
@@ -178,11 +187,11 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jBtnBoletos;
+    private javax.swing.JButton jBtnBuses;
+    private javax.swing.JButton jBtnSalidas;
+    private javax.swing.JButton jBtnSalir;
+    private javax.swing.JLabel jLblMenu;
+    private javax.swing.JPanel jPnl0;
     // End of variables declaration                   
 }

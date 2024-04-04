@@ -3,16 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vistas;
+
+import Cooperativa.GestorDatos;
+
 /**
  *
  * @author Elkinnn
  */
 public class MenuViajes extends javax.swing.JFrame {
 
+    private GestorDatos gestor;
     /**
      * Creates new form MenuViajes
      */
     public MenuViajes() {
+        this.gestor = GestorDatos.iniciaGestor();
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -180,7 +185,7 @@ public class MenuViajes extends javax.swing.JFrame {
     }// </editor-fold>                             
 
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
+        this.gestor.imprimerBuses();
     }                                           
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {                                             
