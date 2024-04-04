@@ -24,5 +24,12 @@ public class Salida {
         return false;
     }
 
+    public boolean removePasajero(Persona p){
+        return this.bus.outPasajero(p);
+    }
     
+    public boolean betweenTime(LocalDateTime t1, LocalDateTime t2){
+        return this.horario.isAfter(t1) && this.horario.isBefore(t2);
+    }
+
 }
