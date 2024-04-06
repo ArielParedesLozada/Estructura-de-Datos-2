@@ -48,6 +48,18 @@ public class Bus {
         return (this.pasajeros > 0) ? (this.pasajeros / this.personas.length) : 0;
     }
 
+    public int[] asientosDisponibles() {
+        int[] asientos = new int[this.personas.length - this.pasajeros];
+        int index = 0;
+        for (int i = 0; i < this.personas.length; i++) {
+            if (this.personas[i] == null) {
+                asientos[index] = i;
+                index++;
+            }
+        }
+        return asientos;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
