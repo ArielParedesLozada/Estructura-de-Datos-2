@@ -6,9 +6,9 @@ import Entidades.Persona;
 import Entidades.Salida;
 
 public class GestorDatos {
-    private LinkedList<Bus> buses;
-    private LinkedList<Salida> salidas;
-    private LinkedList<Boleto> boletos;
+    public LinkedList<Bus> buses;
+    public LinkedList<Salida> salidas;
+    public LinkedList<Boleto> boletos;
     private static GestorDatos instance;
     
     private GestorDatos(){
@@ -38,24 +38,12 @@ public class GestorDatos {
         return false;
     }
 
+    public boolean addBoleto(Persona p, Salida s){
+        Boleto nuevo = new Boleto(p, s);
+        return this.boletos.add(nuevo);
+    }
+
     public boolean removeSalida(Salida s){
         return this.salidas.remove(s);
-    }
-
-    public boolean addBoleto(Persona p, Salida s){
-        Boleto boleto;
-        try {
-            boleto = new Boleto(p, s);
-        } catch (Exception e) {
-            return false;
-        }
-        return this.boletos.add(boleto);
-    }
-
-    public void imprimerBuses(){
-        System.out.println("/////");
-        for (Bus bus : this.buses) {
-            System.out.println(bus.id);
-        }
     }
 }
