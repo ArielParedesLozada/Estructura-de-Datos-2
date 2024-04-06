@@ -210,7 +210,6 @@ public class MenuBuses extends javax.swing.JFrame {
             return;
         }
         JOptionPane.showMessageDialog(null, "Se añadió el bus al gestor");
-        this.gestor.imprimerBuses();
     }
 
     /**
