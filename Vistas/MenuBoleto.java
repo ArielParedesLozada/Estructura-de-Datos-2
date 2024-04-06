@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 
 import Cooperativa.Boleto;
 import Cooperativa.GestorDatos;
-import Entidades.Bus;
 import Entidades.Persona;
 import Entidades.Salida;
 
