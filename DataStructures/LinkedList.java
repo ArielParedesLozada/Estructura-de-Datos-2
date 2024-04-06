@@ -13,20 +13,7 @@ public class LinkedList<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new LinkedListIterator<T>(this.first);
-    }
-
-    private LinearNode<T> search(int index){
-        if (index < 0 || this.count < index) {
-            return null;
-        }
-        LinearNode<T> current = this.first;
-        int i = 0;
-        while (current != null && i < index) {
-            current = current.next;
-            i++;
-        }
-        return current;
+        return new LinkedListIterator<>(this.first);
     }
 
     public boolean add(T t) {
@@ -63,7 +50,7 @@ public class LinkedList<T> implements Iterable<T> {
     public boolean addLast(T t) {
         LinearNode<T> nuevo;
         try {
-            nuevo = new LinearNode<T>(t);
+            nuevo = new LinearNode<>(t);
         } catch (Exception e) {
             return false;
         }
@@ -72,7 +59,7 @@ public class LinkedList<T> implements Iterable<T> {
             this.count = 1;
             return true;
         }
-        LinearNode<T> search = search(this.count-1);
+        LinearNode<T> search = searchAt(this.count);
         search.next = nuevo;
         this.count++;
         return true;
@@ -83,44 +70,83 @@ public class LinkedList<T> implements Iterable<T> {
             return false;
         }
         if (index == 0) {
-            return addFirst(t);
+            addFirst(t);
+            return true;
         } else if (index == this.count) {
-            return addLast(t);
+            addLast(t);
+            return true;
         }
-        LinearNode<T> nuevo;
         try {
-            nuevo = new LinearNode<T>(t);
+            LinearNode<T> nuevo = new LinearNode<T>(t);
+            LinearNode<T> search = searchAt(index);
+            nuevo.next = search.next;
+            search.next = nuevo;
+            this.count++;
+            return true;
         } catch (Exception e) {
             return false;
         }
-        LinearNode<T> search = search(index - 1);
-        nuevo.next = search.next;
-        search.next = nuevo;
-        this.count++;
+    }
+
+    private LinearNode<T> searchAt(int index) {
+        int i = 0;
+        LinearNode<T> search = this.first;
+        while (i < index - 1) {
+            search = search.next;
+            i++;
+        }
+        return search;
+    }
+
+    public T findAt(int index) {
+        if (index < 0 || this.count < index) {
+            return null;
+        }
+        int i = 0;
+        LinearNode<T> search = this.first;
+        while (search != null && i < index) {
+            search = search.next;
+            i++;
+        }
+        return search.element;
+    }
+
+    public boolean remove(T target) {
+        boolean res = false;
+        while (this.first != null && this.first.element.equals(target)) {
+            this.first = this.first.next;
+            this.count--;
+            res = true;
+        }
+        LinearNode<T> search = this.first;
+        while (search != null) {
+            if (search.next != null && search.next.element.equals(target)) {
+                search.next = search.next.next;
+                this.count--;
+                res = true;
+            } else {
+                search = search.next;
+            }
+        }
+        return res;
+    }
+
+    public boolean removeAt(int index) {
+        if (index < 0 || this.count < index) {
+            return false;
+        }
+        if (index == 0) {
+            this.first = this.first.next;
+            this.count--;
+            return true;
+        }
+        LinearNode<T> target = searchAt(index);
+        target.next = target.next.next;
+        this.count--;
         return true;
     }
 
-    public boolean remove(T t) {
-        boolean found = false;
-        while (this.first != null && this.first.element.equals(t)) {
-            this.first = this.first.next;
-            this.count --;
-            found = true;
-        }
-        LinearNode<T> current = this.first;
-        while (current != null) {
-            if (current.next != null && current.next.element.equals(t)) {
-                current.next = current.next.next;
-                this.count --;
-                found = true;
-            } else {
-                current = current.next;
-            }
-        }
-        return found;
-    }
-
-    public boolean contains(T element) {
+    public boolean contains(Object element) {
         LinearNode<T> target = this.first;
         while (target != null) {
             if (target.element.equals(element)) {
@@ -132,21 +158,24 @@ public class LinkedList<T> implements Iterable<T> {
     }
 
     public T find(Object target) {
-        LinearNode<T> search = this.first;
-        while (search != null) {
-            if (search.element.equals(target)) {
-                return search.element;
+        if (this.first.element.equals(target)) {
+            return this.first.element;
+        }
+        LinearNode<T> search = this.first.next;
+        while (!search.element.equals(target)) {
+            if (search.next == null) {
+                return null;
             }
             search = search.next;
         }
-        return null;
+        return search.element;
     }
 
     public void imprimir() {
         LinearNode<T> current = this.first;
         while (current != null) {
-            System.out.println(current.getElement().toString());
-            current = current.getNext();
+            System.out.println(current.element.toString());
+            current = current.next;
         }
     }
 
