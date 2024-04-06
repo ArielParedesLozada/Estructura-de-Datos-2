@@ -4,7 +4,19 @@
  */
 package Vistas;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 import Cooperativa.GestorDatos;
+import Entidades.Bus;
+import Entidades.Salida;
 
 /**
  *
@@ -12,6 +24,7 @@ import Cooperativa.GestorDatos;
  */
 public class MenuViajes extends javax.swing.JFrame {
 
+    private DefaultComboBoxModel bmxModel;
     private GestorDatos gestor;
     /**
      * Creates new form MenuViajes
@@ -19,6 +32,7 @@ public class MenuViajes extends javax.swing.JFrame {
     public MenuViajes() {
         this.gestor = GestorDatos.iniciaGestor();
         initComponents();
+        setBmx();
         setLocationRelativeTo(null);
     }
 
@@ -38,12 +52,12 @@ public class MenuViajes extends javax.swing.JFrame {
         jTxtDestino = new javax.swing.JTextField();
         jLblHora = new javax.swing.JLabel();
         jLblBus = new javax.swing.JLabel();
-        jTxtBus = new javax.swing.JTextField();
         jLblFecha = new javax.swing.JLabel();
-        jDCFecha = new com.toedter.calendar.JDateChooser();
         jBtnGuardar = new java.awt.Button();
         jBmxHora = new com.github.lgooddatepicker.components.TimePicker();
         jBtnRegresar = new javax.swing.JButton();
+        jBmxBus = new javax.swing.JComboBox<>();
+        jBmxFecha = new com.github.lgooddatepicker.components.DatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -69,13 +83,9 @@ public class MenuViajes extends javax.swing.JFrame {
         jLblBus.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
         jLblBus.setForeground(new java.awt.Color(51, 51, 51));
 
-        jTxtBus.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-
         jLblFecha.setText("FECHA:");
         jLblFecha.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
         jLblFecha.setForeground(new java.awt.Color(51, 51, 51));
-
-        jDCFecha.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jBtnGuardar.setBackground(new java.awt.Color(255, 255, 204));
         jBtnGuardar.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
@@ -96,6 +106,9 @@ public class MenuViajes extends javax.swing.JFrame {
             }
         });
 
+        jBmxBus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jBmxBus.setBorder(null);
+
         javax.swing.GroupLayout jPnl0Layout = new javax.swing.GroupLayout(jPnl0);
         jPnl0.setLayout(jPnl0Layout);
         jPnl0Layout.setHorizontalGroup(
@@ -106,35 +119,28 @@ public class MenuViajes extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(jLblImagen)
                         .addGap(18, 18, 18)
+                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLblDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLblBus, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLblHora, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnl0Layout.createSequentialGroup()
-                                .addComponent(jLblDestino)
-                                .addGap(36, 36, 36)
-                                .addComponent(jTxtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnl0Layout.createSequentialGroup()
-                                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPnl0Layout.createSequentialGroup()
-                                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLblHora, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLblBus, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLblFecha, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addGap(36, 36, 36)
-                                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTxtBus, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jBmxHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(70, 70, 70))))
+                            .addComponent(jBmxFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBmxBus, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBmxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPnl0Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jBtnRegresar)
                         .addGap(106, 106, 106)
                         .addComponent(jLblSalida)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPnl0Layout.setVerticalGroup(
             jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPnl0Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnl0Layout.createSequentialGroup()
                 .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPnl0Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -142,32 +148,33 @@ public class MenuViajes extends javax.swing.JFrame {
                     .addGroup(jPnl0Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jBtnRegresar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPnl0Layout.createSequentialGroup()
-                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLblDestino, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTxtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
-                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jBmxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPnl0Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLblHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
+                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnl0Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTxtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLblDestino))
+                        .addGap(9, 9, 9)
                         .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTxtBus, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLblBus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLblBus)
+                            .addComponent(jBmxBus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLblFecha)))
-                    .addGroup(jPnl0Layout.createSequentialGroup()
+                            .addComponent(jLblFecha)
+                            .addGroup(jPnl0Layout.createSequentialGroup()
+                                .addComponent(jBmxFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                                .addGap(2, 2, 2)))
+                        .addGap(8, 8, 8)
+                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLblHora)
+                            .addComponent(jBmxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnl0Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
                         .addComponent(jLblImagen)
-                        .addGap(12, 12, 12)))
-                .addGap(20, 20, 20)
-                .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                        .addGap(92, 92, 92))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -182,10 +189,52 @@ public class MenuViajes extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                             
+    }// </editor-fold>                      
 
-    private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        this.gestor.imprimerBuses();
+    private void setBmx(){
+        this.bmxModel = new DefaultComboBoxModel<>();
+        for (Bus bus : this.gestor.buses) {
+            this.bmxModel.addElement(bus.id);
+        }
+        this.jBmxBus.setModel(bmxModel);
+    }
+    
+    private LocalDateTime parseDateTime() {
+        LocalTime hora = null;
+        LocalDate fecha = null;
+        LocalDateTime horario = null;
+        try {
+            hora = this.jBmxHora.getTime();
+            fecha = this.jBmxFecha.getDate();
+            horario = fecha.atTime(hora);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se creó la fecha");
+        }
+        return horario;
+    }
+
+    private Bus selectBus(){
+        Object id = this.jBmxBus.getSelectedItem();
+        Bus bus = this.gestor.buses.find(id);
+        return bus;
+    }
+
+    private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {     
+        Salida salida;                                       
+        try {
+            String destino = this.jTxtDestino.getText();
+            LocalDateTime horario = parseDateTime();
+            Bus bus = selectBus();
+            salida = new Salida(destino, horario, bus);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo crear la salida");
+            return;
+        }
+        if (!this.gestor.addSalida(salida)) {
+            JOptionPane.showMessageDialog(null, "No se añadió la salida");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, "Se añadió la salida");
     }                                           
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {                                             
@@ -230,10 +279,12 @@ public class MenuViajes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
+    // Variables declaration - do not modify                     
+    private javax.swing.JComboBox<String> jBmxBus;
+    private com.github.lgooddatepicker.components.DatePicker jBmxFecha;
     private com.github.lgooddatepicker.components.TimePicker jBmxHora;
     private java.awt.Button jBtnGuardar;
     private javax.swing.JButton jBtnRegresar;
-    private com.toedter.calendar.JDateChooser jDCFecha;
     private javax.swing.JLabel jLblBus;
     private javax.swing.JLabel jLblDestino;
     private javax.swing.JLabel jLblFecha;
@@ -241,7 +292,6 @@ public class MenuViajes extends javax.swing.JFrame {
     private javax.swing.JLabel jLblImagen;
     private javax.swing.JLabel jLblSalida;
     private javax.swing.JPanel jPnl0;
-    private javax.swing.JTextField jTxtBus;
     private javax.swing.JTextField jTxtDestino;
-    // End of variables declaration                   
+    // End of variables declaration                  
 }
