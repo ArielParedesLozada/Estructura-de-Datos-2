@@ -4,17 +4,32 @@
  */
 package Vistas;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.swing.JOptionPane;
+
+import Entidades.Persona;
+
 /**
  *
  * @author Elkinnn
  */
 public class MenuUsuarios extends javax.swing.JFrame {
 
+    private Persona persona;
+
     /**
      * Creates new form MenuUsuarios
      */
     public MenuUsuarios() {
+        this.persona = null;
         initComponents();
+        this.jBtnBuscar.setEnabled(false);
         setLocationRelativeTo(null);
     }
 
@@ -41,6 +56,10 @@ public class MenuUsuarios extends javax.swing.JFrame {
         jLblHorario = new javax.swing.JLabel();
         jBtnGuardar = new java.awt.Button();
         jBtnRegresar = new javax.swing.JButton();
+        jBtnBuscar = new javax.swing.JButton();
+        jBmxHora = new com.github.lgooddatepicker.components.TimePicker();
+        jLblHora = new javax.swing.JLabel();
+        jBmxFecha = new com.github.lgooddatepicker.components.DatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -48,38 +67,38 @@ public class MenuUsuarios extends javax.swing.JFrame {
 
         jPnl0.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLblCompra.setFont(new java.awt.Font("Imprint MT Shadow", 1, 48)); // NOI18N
         jLblCompra.setText("COMPRA DE BOLETOS");
+        jLblCompra.setFont(new java.awt.Font("Imprint MT Shadow", 1, 48)); // NOI18N
 
+        jLblID.setText("CEDULA DE IDENTIDAD:");
         jLblID.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
         jLblID.setForeground(new java.awt.Color(51, 51, 51));
-        jLblID.setText("CEDULA DE IDENTIDAD:");
 
         jTxtID.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
+        jLblNombre.setText("NOMBRES:");
         jLblNombre.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
         jLblNombre.setForeground(new java.awt.Color(51, 51, 51));
-        jLblNombre.setText("NOMBRES:");
 
         jTxtNombre.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
+        jLblApellido.setText("APELLIDOS:");
         jLblApellido.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
         jLblApellido.setForeground(new java.awt.Color(51, 51, 51));
-        jLblApellido.setText("APELLIDOS:");
 
         jTxtApellido.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
+        jLblDestino.setText("DESTINO:");
         jLblDestino.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
         jLblDestino.setForeground(new java.awt.Color(51, 51, 51));
-        jLblDestino.setText("DESTINO:");
 
         jTxtDestino.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLblImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("Imagenes/avatar.png"))); // NOI18N
 
+        jLblHorario.setText("HORARIO:");
         jLblHorario.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
         jLblHorario.setForeground(new java.awt.Color(51, 51, 51));
-        jLblHorario.setText("HORARIO:");
 
         jBtnGuardar.setBackground(new java.awt.Color(255, 255, 204));
         jBtnGuardar.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
@@ -90,13 +109,26 @@ public class MenuUsuarios extends javax.swing.JFrame {
             }
         });
 
-        jBtnRegresar.setBackground(new java.awt.Color(255, 255, 204));
         jBtnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("Imagenes/REGRESAR.png"))); // NOI18N
+        jBtnRegresar.setBackground(new java.awt.Color(255, 255, 204));
         jBtnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnRegresarActionPerformed(evt);
             }
         });
+
+        jBtnBuscar.setText("BUSCAR SALIDA");
+        jBtnBuscar.setBackground(new java.awt.Color(255, 255, 204));
+        jBtnBuscar.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
+        jBtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnBuscarActionPerformed(evt);
+            }
+        });
+
+        jLblHora.setText("HORA:");
+        jLblHora.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
+        jLblHora.setForeground(new java.awt.Color(51, 51, 51));
 
         javax.swing.GroupLayout jPnl0Layout = new javax.swing.GroupLayout(jPnl0);
         jPnl0.setLayout(jPnl0Layout);
@@ -105,75 +137,90 @@ public class MenuUsuarios extends javax.swing.JFrame {
             .addGroup(jPnl0Layout.createSequentialGroup()
                 .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPnl0Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLblImg)
-                        .addGap(38, 38, 38)
-                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPnl0Layout.createSequentialGroup()
-                                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPnl0Layout.createSequentialGroup()
-                                        .addGap(108, 108, 108)
-                                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLblNombre, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLblApellido, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLblDestino, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLblHorario, javax.swing.GroupLayout.Alignment.TRAILING)))
-                                    .addComponent(jLblID))
-                                .addGap(36, 36, 36)
-                                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTxtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-                                    .addComponent(jTxtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-                                    .addComponent(jTxtDestino, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-                                    .addComponent(jTxtID)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnl0Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(93, 93, 93))))
-                    .addGroup(jPnl0Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jBtnRegresar)
                         .addGap(60, 60, 60)
-                        .addComponent(jLblCompra)))
-                .addContainerGap(82, Short.MAX_VALUE))
+                        .addComponent(jLblCompra))
+                    .addGroup(jPnl0Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPnl0Layout.createSequentialGroup()
+                                .addComponent(jLblImg)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLblDestino)
+                                    .addComponent(jLblApellido)
+                                    .addComponent(jLblNombre)))
+                            .addComponent(jLblID))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPnl0Layout.createSequentialGroup()
+                                .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(92, 92, 92)
+                                .addComponent(jBtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTxtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                                .addComponent(jTxtApellido))
+                            .addGroup(jPnl0Layout.createSequentialGroup()
+                                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTxtID, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTxtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLblHorario)
+                                    .addComponent(jLblHora))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBmxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jBmxFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPnl0Layout.setVerticalGroup(
             jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPnl0Layout.createSequentialGroup()
-                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPnl0Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLblCompra))
-                    .addGroup(jPnl0Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jBtnRegresar)))
-                .addGap(42, 42, 42)
-                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLblID, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTxtID, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLblImg)
+                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPnl0Layout.createSequentialGroup()
                         .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPnl0Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(21, 21, 21)
+                                .addComponent(jLblCompra))
                             .addGroup(jPnl0Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLblNombre)
-                                .addGap(18, 18, 18)
+                                .addContainerGap()
+                                .addComponent(jBtnRegresar)))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPnl0Layout.createSequentialGroup()
+                                .addComponent(jLblHorario)
+                                .addGap(11, 11, 11))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnl0Layout.createSequentialGroup()
                                 .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTxtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLblApellido))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTxtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLblDestino))))
-                        .addGap(24, 24, 24)
-                        .addComponent(jLblHorario)))
-                .addGap(19, 19, 19)
-                .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                                    .addComponent(jLblID)
+                                    .addComponent(jTxtID, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18))))
+                    .addGroup(jPnl0Layout.createSequentialGroup()
+                        .addComponent(jBmxFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)))
+                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLblImg)
+                    .addGroup(jPnl0Layout.createSequentialGroup()
+                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLblApellido)
+                            .addComponent(jLblHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBmxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLblNombre)
+                            .addComponent(jTxtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTxtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLblDestino))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -188,26 +235,61 @@ public class MenuUsuarios extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
-    
-    private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
+    }// </editor-fold>
 
-    private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private LocalDateTime parseDateTime() {
+        LocalTime hora = null;
+        LocalDate fecha = null;
+        LocalDateTime horario = null;
+        try {
+            hora = this.jBmxHora.getTime();
+            fecha = this.jBmxFecha.getDate();
+            horario = fecha.atTime(hora);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se creó la fecha");
+        }
+        return horario;
+    }
+
+    private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            String id = this.jTxtID.getText();
+            String nombre = this.jTxtNombre.getText();
+            String apellido = this.jTxtApellido.getText();
+            String destino = this.jTxtDestino.getText();
+            LocalDateTime horario = parseDateTime();
+            this.persona = new Persona(id, nombre, apellido, destino, horario);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo crear a la persona");
+            return;
+        }
+        this.jBtnBuscar.setEnabled(true);
+        JOptionPane.showMessageDialog(null, "Se creó correctamente a la persona \n Busque un horario");
+    }
+
+    private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {
         Menu menu = new Menu();
         menu.setVisible(true);
         this.dispose();
-    }                                            
+    }
+
+    private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
+        MenuBoleto menuBoleto = new MenuBoleto(this.persona);
+        menuBoleto.setVisible(true);
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
+        // (optional) ">
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
+         * look and feel.
+         * For details see
+         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -217,15 +299,19 @@ public class MenuUsuarios extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         }
-        //</editor-fold>
+        // </editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -236,11 +322,15 @@ public class MenuUsuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
+    private com.github.lgooddatepicker.components.DatePicker jBmxFecha;
+    private com.github.lgooddatepicker.components.TimePicker jBmxHora;
+    private javax.swing.JButton jBtnBuscar;
     private java.awt.Button jBtnGuardar;
     private javax.swing.JButton jBtnRegresar;
     private javax.swing.JLabel jLblApellido;
     private javax.swing.JLabel jLblCompra;
     private javax.swing.JLabel jLblDestino;
+    private javax.swing.JLabel jLblHora;
     private javax.swing.JLabel jLblHorario;
     private javax.swing.JLabel jLblID;
     private javax.swing.JLabel jLblImg;
@@ -250,5 +340,5 @@ public class MenuUsuarios extends javax.swing.JFrame {
     private javax.swing.JTextField jTxtDestino;
     private javax.swing.JTextField jTxtID;
     private javax.swing.JTextField jTxtNombre;
-    // End of variables declaration                   
+    // End of variables declaration 
 }
