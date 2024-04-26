@@ -35,6 +35,14 @@ public class Salida {
     public boolean betweenTime(LocalDateTime t1, LocalDateTime t2) {
         return this.horario.isAfter(t1) && this.horario.isBefore(t2);
     }
+    
+    public float getPromedioBus(){
+        return this.bus.promedio();
+    }
+    
+    public String getIDBus(){
+        return this.bus.id;
+    }
 
     @Override
     public String toString() {
