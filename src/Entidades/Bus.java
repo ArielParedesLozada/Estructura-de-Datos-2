@@ -1,6 +1,9 @@
 package Entidades;
 
+import java.util.Objects;
+
 public class Bus {
+
     public String id;
     private int pasajeros;
     private Persona[] personas;
@@ -45,7 +48,7 @@ public class Bus {
     }
 
     public float promedio() {
-        return (this.pasajeros > 0) ? (this.pasajeros / this.personas.length) : 0;
+        return 100*this.pasajeros/this.personas.length;
     }
 
     public int[] asientosDisponibles() {
@@ -65,6 +68,13 @@ public class Bus {
         if (this == obj) {
             return true;
         }
-        return (obj instanceof Bus) ? this.id.equals(((Bus)obj).id) : this.id.equals(obj);
+        return (obj instanceof Bus) ? this.id.equals(((Bus) obj).id) : this.id.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        return hash;
     }
 }
