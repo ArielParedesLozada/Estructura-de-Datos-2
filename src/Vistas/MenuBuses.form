@@ -135,10 +135,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLblBuses">
           <Properties>
-            <Property name="text" type="java.lang.String" value="VEHICULOS - BUSES"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Imprint MT Shadow" size="48" style="1"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="VEHICULOS - BUSES"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLblBus">
@@ -150,32 +150,32 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLblNums">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CAPACIDAD TOTAL:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Rounded MT Bold" size="18" style="3"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="CAPACIDAD TOTAL:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLblId">
           <Properties>
-            <Property name="text" type="java.lang.String" value="IDENTIFICADOR:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Rounded MT Bold" size="18" style="3"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="IDENTIFICADOR:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLblPersonas">
           <Properties>
-            <Property name="text" type="java.lang.String" value="PERSONAS"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Rounded MT Bold" size="18" style="1"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="PERSONAS"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTxtID">
@@ -187,11 +187,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBtnRegresar">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagenes/REGRESAR.png"/>
-            </Property>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Vistas/Imagenes/REGRESAR.png"/>
             </Property>
           </Properties>
           <Events>
