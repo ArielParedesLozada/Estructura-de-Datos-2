@@ -1,6 +1,9 @@
 package Cooperativa;
 
+import java.util.HashMap;
+
 import DataStructures.LinkedList;
+import DataStructures.TablaHash;
 import Entidades.Bus;
 import Entidades.Persona;
 import Entidades.Salida;
@@ -8,13 +11,13 @@ import Entidades.Salida;
 public class GestorDatos {
     public LinkedList<Bus> buses;
     public LinkedList<Salida> salidas;
-    public LinkedList<Boleto> boletos;
+    public TablaHash<String, Salida> registro;
     private static GestorDatos instance;
     
     private GestorDatos(){
         this.buses = new LinkedList<>();
-        this.boletos = new LinkedList<>();
         this.salidas = new LinkedList<>();
+        this.registro = new TablaHash<>();
     }
 
     public static GestorDatos iniciaGestor(){
@@ -39,10 +42,9 @@ public class GestorDatos {
     }
 
     public boolean addBoleto(Persona p, Salida s){
-        Boleto nuevo = new Boleto(p, s);
-        return this.boletos.add(nuevo);
+        return this.registro.addValue(p.id, s);
     }
-
+    
     public boolean removeSalida(Salida s){
         return this.salidas.remove(s);
     }
