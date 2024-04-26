@@ -62,7 +62,7 @@ public class MenuViajes extends javax.swing.JFrame {
         jLblSalida.setText("VIAJES - SALIDAS");
         jLblSalida.setFont(new java.awt.Font("Imprint MT Shadow", 1, 48)); // NOI18N
 
-        jLblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/viaje.png"))); // NOI18N
+        jLblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/viaje.png"))); // NOI18N
 
         jLblDestino.setText("DESTINO:");
         jLblDestino.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
@@ -93,7 +93,7 @@ public class MenuViajes extends javax.swing.JFrame {
 
         jBmxHora.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        jBtnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/REGRESAR.png"))); // NOI18N
+        jBtnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/REGRESAR.png"))); // NOI18N
         jBtnRegresar.setBackground(new java.awt.Color(255, 255, 204));
         jBtnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,7 +157,7 @@ public class MenuViajes extends javax.swing.JFrame {
                         .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLblFecha)
                             .addGroup(jPnl0Layout.createSequentialGroup()
-                                .addComponent(jBmxFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                                .addComponent(jBmxFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(2, 2, 2)))
                         .addGap(8, 8, 8)
                         .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -232,7 +232,6 @@ public class MenuViajes extends javax.swing.JFrame {
             return;
         }
         JOptionPane.showMessageDialog(null, "Se añadió la salida");
-
     }//GEN-LAST:event_jBtnGuardarActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
@@ -244,37 +243,6 @@ public class MenuViajes extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuViajes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuViajes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuViajes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuViajes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuViajes().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jBmxBus;
