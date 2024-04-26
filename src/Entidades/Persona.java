@@ -1,6 +1,7 @@
 package Entidades;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Persona {
     public String id;
@@ -27,5 +28,12 @@ public class Persona {
             return true;
         }
         return (obj instanceof Persona) ? this.id.equals(((Persona) obj).id) : this.id.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        return hash;
     }
 }
