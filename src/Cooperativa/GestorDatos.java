@@ -1,7 +1,5 @@
 package Cooperativa;
 
-import java.util.HashMap;
-
 import DataStructures.LinkedList;
 import DataStructures.TablaHash;
 import Entidades.Bus;
@@ -35,10 +33,12 @@ public class GestorDatos {
     }
 
     public boolean addSalida(Salida salida){
-        if (!this.salidas.contains(salida)) {
-            return this.salidas.add(salida);
+        for (Salida salda : this.salidas) {
+            if (salda.comparaBusHorario(salida)) {
+                return false;
+            }
         }
-        return false;
+        return this.salidas.add(salida);
     }
 
     public boolean addBoleto(Persona p, Salida s){
