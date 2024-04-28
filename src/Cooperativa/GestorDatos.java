@@ -59,13 +59,4 @@ public class GestorDatos {
         }
         return destinos;
     }
-    
-    public Salida buscarSalidaPorBusID(String busID) {
-        for (Salida salida : this.salidas) {
-            if (salida.getIDBus().equals(busID)) {
-                return salida;
-            }
-        }
-        return null; // Retornar null si no se encuentra ninguna salida con el ID de bus especificado
-    }
 }
