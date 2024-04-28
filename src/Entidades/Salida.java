@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 public class Salida {
 
     public String destino;
-    private LocalDateTime horaSalida;
-    private LocalDateTime horaLlegada;
+    public LocalDateTime horaSalida;
+    public LocalDateTime horaLlegada;
     private Bus bus;
     private Persona[] pasajeros;
     private int cantidad;
@@ -19,13 +19,9 @@ public class Salida {
         this.pasajeros = new Persona[this.bus.capacidad];
         this.cantidad = 0;
     }
-
-    public boolean disponible(Persona p) {
-        return this.horaSalida.equals(p.horario) && this.destino.equals(p.destino) && (this.bus.capacidad > this.cantidad);
-    }
     
     public boolean comparaBusHorario(Salida s){
-        return this.bus.equals(s.bus) && this.horaSalida.isBefore(s.horaLlegada) && this.horaSalida.isBefore(s.horaLlegada);
+        return this.bus.equals(s.bus) && this.horaSalida.isBefore(s.horaLlegada) && this.horaLlegada.isAfter(s.horaSalida);
     }
 
     public boolean contains(Persona p) {
@@ -38,7 +34,7 @@ public class Salida {
     }
 
     public boolean addPasajeroAt(int index, Persona p) {
-        if (disponible(p) && index < this.bus.capacidad && index >= 0 && this.pasajeros[index] == null) {
+        if (this.cantidad < this.bus.capacidad && index < this.bus.capacidad && index >= 0 && this.pasajeros[index] == null) {
             this.pasajeros[index] = p;
             this.cantidad++;
             return true;
@@ -83,12 +79,10 @@ public class Salida {
 
     @Override
     public String toString() {
-        return "Salida{"
-                + "destino='" + destino + '\''
-                + ", horaSalida=" + horaSalida
-                + ", horaLlegada=" + horaLlegada
-                + ", bus ID=" + bus.id
-                + '}';
+        return  "destino: " + this.destino
+                + ", horaSalida: " + this.horaSalida
+                + ", horaLlegada: " + this.horaLlegada
+                + ", bus ID: " + this.bus.id;
     }
 
     @Override
@@ -101,6 +95,9 @@ public class Salida {
                     ((Salida) obj).horaLlegada == this.horaLlegada && 
                     ((Salida) obj).horaSalida == this.horaSalida && 
                     ((Salida) obj).destino.equals(this.destino);
+        }
+        if (obj instanceof String) {
+            return this.toString().equals(obj);
         }
         return false;
     }
