@@ -4,18 +4,80 @@
  */
 package Vistas;
 
+import Cooperativa.GestorDatos;
+import Entidades.Persona;
+import Entidades.Salida;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author elkin
  */
 public class BuscarSalidaBoletos extends javax.swing.JFrame {
 
+    private GestorDatos gestor;
+    private Persona persona;
+
     /**
      * Creates new form BuscarSalidaBoletos
      */
-    public BuscarSalidaBoletos() {
+    public BuscarSalidaBoletos(Persona p) {
+        this.gestor = GestorDatos.iniciaGestor();
+        this.persona = p;
         initComponents();
         this.setLocationRelativeTo(null);
+        //Se deshabilitan las cosas que aun no se configuran
+        this.jBmxAsiento.setEnabled(false);
+        this.jBmxSalida.setEnabled(false);
+        this.jBtnGuardar.setEnabled(false);
+        setDestinos();
+    }
+
+    public BuscarSalidaBoletos() {
+        this.gestor = GestorDatos.iniciaGestor();
+        this.persona = null;
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.jBmxAsiento.setEnabled(false);
+        this.jBmxSalida.setEnabled(false);
+        this.jBtnGuardar.setEnabled(false);
+        setDestinos();
+    }
+
+    //Pone los destinos para escoger
+    private void setDestinos() {
+        DefaultComboBoxModel jBmxModelDestinos = new DefaultComboBoxModel<>();
+        for (String destino : this.gestor.getDestinos()) {
+            jBmxModelDestinos.addElement(destino);
+        }
+        this.jBmxDestino.setModel(jBmxModelDestinos);
+    }
+
+    //Setea la tabla de salidas con las columnas iniciales
+    private void setSalidas(String destino) {
+        DefaultComboBoxModel jBmxModelSalidas = new DefaultComboBoxModel<>();
+        for (Salida salida : this.gestor.salidas) {
+            if (salida.destino.equals(destino)) {
+                jBmxModelSalidas.addElement(salida.toString());
+            }
+        }
+        this.jBmxSalida.setModel(jBmxModelSalidas);
+    }
+
+    //Devuelve la salida seleccionada una vez se tiene el 
+    private Salida getSelectedSalida() {
+        String salida = (String) this.jBmxSalida.getSelectedItem();
+        return this.gestor.salidas.find(salida);//Se utiliza el otro sistema para buscar
+    }
+
+    //Setea el comboBox de los asientos dado 
+    private void setAsientos(Salida salida) {
+        DefaultComboBoxModel jBmxModelAsientos = new DefaultComboBoxModel<>();
+        for (int asiento : salida.asientosDisponibles()) {
+            jBmxModelAsientos.addElement(asiento);
+        }
+        this.jBmxAsiento.setModel(jBmxModelAsientos);
     }
 
     /**
@@ -29,14 +91,14 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
 
         jPnl0 = new javax.swing.JPanel();
         jLblAsiento = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTblDestino = new javax.swing.JTable();
         jBtnRegresar = new javax.swing.JButton();
         jBtnGuardar = new java.awt.Button();
         jBmxAsiento = new javax.swing.JComboBox<>();
         jLblCompra = new javax.swing.JLabel();
         jBmxDestino = new javax.swing.JComboBox<>();
         jLblDestino = new javax.swing.JLabel();
+        jLblSalida = new javax.swing.JLabel();
+        jBmxSalida = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -44,32 +106,12 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
 
         jPnl0.setBackground(new java.awt.Color(153, 153, 255));
 
-        jLblAsiento.setText("ASIENTO:");
         jLblAsiento.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 25)); // NOI18N
         jLblAsiento.setForeground(new java.awt.Color(51, 51, 51));
+        jLblAsiento.setText("ASIENTO:");
 
-        jTblDestino.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTblDestino);
-
-        jBtnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Boton.png"))); // NOI18N
         jBtnRegresar.setBackground(new java.awt.Color(153, 153, 255));
+        jBtnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Boton.png"))); // NOI18N
         jBtnRegresar.setBorder(null);
         jBtnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,60 +128,77 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
             }
         });
 
-        jBmxAsiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Asiento", "Item 2", "Item 3", "Item 4" }));
         jBmxAsiento.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBmxAsiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Asiento", "Item 2", "Item 3", "Item 4" }));
         jBmxAsiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBmxAsientoActionPerformed(evt);
             }
         });
 
-        jLblCompra.setText("BUSCAR SALIDA");
         jLblCompra.setFont(new java.awt.Font("Imprint MT Shadow", 1, 55)); // NOI18N
+        jLblCompra.setText("BUSCAR SALIDA");
 
-        jBmxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Destino", "Item 2", "Item 3", "Item 4" }));
         jBmxDestino.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBmxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Destino", "Item 2", "Item 3", "Item 4" }));
         jBmxDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBmxDestinoActionPerformed(evt);
             }
         });
 
-        jLblDestino.setText("DESTINO:");
         jLblDestino.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 25)); // NOI18N
         jLblDestino.setForeground(new java.awt.Color(51, 51, 51));
+        jLblDestino.setText("DESTINO:");
+
+        jLblSalida.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 25)); // NOI18N
+        jLblSalida.setForeground(new java.awt.Color(51, 51, 51));
+        jLblSalida.setText("SALIDA:");
+
+        jBmxSalida.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBmxSalida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Destino", "Item 2", "Item 3", "Item 4" }));
+        jBmxSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBmxSalidaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPnl0Layout = new javax.swing.GroupLayout(jPnl0);
         jPnl0.setLayout(jPnl0Layout);
         jPnl0Layout.setHorizontalGroup(
             jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPnl0Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnl0Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLblCompra)
                 .addGap(114, 114, 114)
                 .addComponent(jBtnRegresar)
                 .addGap(19, 19, 19))
             .addGroup(jPnl0Layout.createSequentialGroup()
+                .addGap(344, 344, 344)
+                .addComponent(jLblDestino)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPnl0Layout.createSequentialGroup()
                 .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPnl0Layout.createSequentialGroup()
-                            .addGap(77, 77, 77)
-                            .addComponent(jLblAsiento))
-                        .addGroup(jPnl0Layout.createSequentialGroup()
-                            .addGap(27, 27, 27)
-                            .addComponent(jBmxAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPnl0Layout.createSequentialGroup()
-                            .addGap(68, 68, 68)
-                            .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnl0Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jBmxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPnl0Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jLblDestino)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                        .addGap(45, 45, 45)
+                        .addComponent(jBmxSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 771, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPnl0Layout.createSequentialGroup()
+                        .addGap(288, 288, 288)
+                        .addComponent(jBmxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPnl0Layout.createSequentialGroup()
+                        .addGap(353, 353, 353)
+                        .addComponent(jLblSalida))
+                    .addGroup(jPnl0Layout.createSequentialGroup()
+                        .addGap(343, 343, 343)
+                        .addComponent(jLblAsiento))
+                    .addGroup(jPnl0Layout.createSequentialGroup()
+                        .addGap(284, 284, 284)
+                        .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBmxAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPnl0Layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPnl0Layout.setVerticalGroup(
             jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,47 +207,67 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
                 .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtnRegresar)
                     .addComponent(jLblCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPnl0Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLblDestino)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBmxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLblAsiento)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBmxAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(146, 146, 146))
-                    .addGroup(jPnl0Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(36, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLblDestino)
+                .addGap(10, 10, 10)
+                .addComponent(jBmxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLblSalida)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBmxSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLblAsiento)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBmxAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPnl0, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 600));
+        getContentPane().add(jPnl0, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBmxDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmxDestinoActionPerformed
-        // TODO add your handling code here:
+        setSalidas((String) this.jBmxDestino.getSelectedItem());//Setea la tabla de salidas con el destino seleccionado
+        this.jBmxSalida.setEnabled(true); // Habilitar después de seleccionar destino
     }//GEN-LAST:event_jBmxDestinoActionPerformed
 
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
-        // TODO add your handling code here:
+        try {
+            int asiento = (int) this.jBmxAsiento.getSelectedItem();
+            Salida salida = getSelectedSalida();
+            if (!salida.addPasajeroAt(asiento, this.persona)) {
+                JOptionPane.showMessageDialog(null, "No se pudo añadir la persona a la salida");
+                return;
+            }
+            if (!this.gestor.addBoleto(this.persona, salida)) {
+                JOptionPane.showMessageDialog(null, "No se pudo añadir la salida al resgitro");
+                return;
+            }
+            setAsientos(salida);
+            JOptionPane.showMessageDialog(null, "Se añadió a la persona correctamente");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo añadir a la persona");
+            System.out.println(e);
+        }
     }//GEN-LAST:event_jBtnGuardarActionPerformed
-
-    private void jBmxAsientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmxAsientoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBmxAsientoActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
         MenuBoletos menuboletos = new MenuBoletos();
         menuboletos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnRegresarActionPerformed
+
+    private void jBmxSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmxSalidaActionPerformed
+        setAsientos(getSelectedSalida());//Setea los asientos disponibles
+        this.jBmxAsiento.setEnabled(true);
+    }//GEN-LAST:event_jBmxSalidaActionPerformed
+
+    private void jBmxAsientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmxAsientoActionPerformed
+        this.jBtnGuardar.setEnabled(true);
+    }//GEN-LAST:event_jBmxAsientoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -228,13 +307,13 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jBmxAsiento;
     private javax.swing.JComboBox<String> jBmxDestino;
+    private javax.swing.JComboBox<String> jBmxSalida;
     private java.awt.Button jBtnGuardar;
     private javax.swing.JButton jBtnRegresar;
     private javax.swing.JLabel jLblAsiento;
     private javax.swing.JLabel jLblCompra;
     private javax.swing.JLabel jLblDestino;
+    private javax.swing.JLabel jLblSalida;
     private javax.swing.JPanel jPnl0;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTblDestino;
     // End of variables declaration//GEN-END:variables
 }
