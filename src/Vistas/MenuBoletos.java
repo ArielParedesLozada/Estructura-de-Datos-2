@@ -180,7 +180,7 @@ public class MenuBoletos extends javax.swing.JFrame {
     private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed
         // Construye un mensaje indicando cuáles campos están vacíos
         String mensajeError = "";
-        if (this.jTxtID.getText().trim().isEmpty()) {
+        if (this.jTxtID.getText().trim().isEmpty() || !cedulaValida()) {
             mensajeError += "Cédula de Identidad, ";
         }
         if (this.jTxtNombre.getText().isEmpty()) {
