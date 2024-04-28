@@ -4,18 +4,72 @@
  */
 package Vistas;
 
+import Cooperativa.GestorDatos;
+import Entidades.Salida;
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.TimePicker;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author elkin
  */
 public class InformeViajes extends javax.swing.JFrame {
+private GestorDatos gestor;
+    private DefaultTableModel tblModel;
 
     /**
-     * Creates new form InformeViajes
+     * Creates new form InformeSalidas
      */
     public InformeViajes() {
         initComponents();
+        this.gestor = GestorDatos.iniciaGestor();
+        this.setDefaultCloseOperation(2);
         this.setLocationRelativeTo(null);
+        setTable();
+    }
+
+    private LocalDateTime parseDateTime(TimePicker time, DatePicker date) {
+        LocalTime hora = null;
+        LocalDate fecha = null;
+        LocalDateTime horario = null;
+        try {
+            hora = time.getTime();
+            fecha = date.getDate();
+            horario = fecha.atTime(hora);
+        } catch (Exception e) {
+            return null;
+        }
+        return horario;
+    }
+
+    private void setTable() {
+        this.tblModel = new DefaultTableModel();
+        this.tblModel.addColumn("ID");
+        this.tblModel.addColumn("Ocupacion");
+        this.jTblBuses.setModel(this.tblModel);
+    }
+
+    private float setTable(LocalDateTime t1, LocalDateTime t2) {
+        setTable();
+        int i = 0;
+        float sum = 0;
+        this.tblModel = new DefaultTableModel();
+        this.tblModel.addColumn("ID");
+        this.tblModel.addColumn("Ocupacion");
+        for (Salida salida : this.gestor.salidas) {
+            if (t1 != null && t2 != null && salida.betweenTime(t1, t2)) {
+                this.tblModel.addRow(new Object[]{salida.getIDBus(), salida.getPromedio()});
+                sum += salida.getPromedio();
+                i++;
+            }
+        }
+        this.jTblBuses.setModel(this.tblModel);
+        return (i <= 0) ? 0 : sum / i;
     }
 
     /**
@@ -193,7 +247,17 @@ public class InformeViajes extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed
-
+        LocalDateTime t1 = null;
+        LocalDateTime t2 = null;
+        try {
+            t1 = parseDateTime(this.jTimeInicio, this.jDateInicio);
+            t2 = parseDateTime(this.jTimeFinal, this.jDateFinal);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ingrese fechas");
+            return;
+        }
+        float promedioTotal = setTable(t1, t2);
+        this.jLblPromedio.setText(Float.toString(promedioTotal) + " %");
     }//GEN-LAST:event_jBtnBuscarActionPerformed
 
     /**
