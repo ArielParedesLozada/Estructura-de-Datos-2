@@ -4,6 +4,9 @@
  */
 package Vistas;
 
+import Entidades.Persona;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author elkin
@@ -16,6 +19,23 @@ public class MenuBoletos extends javax.swing.JFrame {
     public MenuBoletos() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+
+    private boolean cedulaValida() {
+        return this.jTxtID.getText().trim().length() == 10;
+    }
+
+    private Persona getPersona() {
+        String id = this.jTxtID.getText().trim();
+        String nombre = this.jTxtNombre.getText();
+        String apellido = this.jTxtApellido.getText();
+        Persona persona;
+        try {
+            persona = new Persona(id, nombre, apellido);
+        } catch (Exception e) {
+            return null;
+        }
+        return persona;
     }
 
     /**
@@ -64,6 +84,11 @@ public class MenuBoletos extends javax.swing.JFrame {
         jTxtNombre.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
 
         jTxtID.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
+        jTxtID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTxtIDKeyTyped(evt);
+            }
+        });
 
         jLblApellido.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 25)); // NOI18N
         jLblApellido.setForeground(new java.awt.Color(51, 51, 51));
@@ -153,7 +178,30 @@ public class MenuBoletos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed
-        BuscarSalidaBoletos buscarsalida = new BuscarSalidaBoletos();
+        // Construye un mensaje indicando cuáles campos están vacíos
+        String mensajeError = "";
+        if (this.jTxtID.getText().trim().isEmpty()) {
+            mensajeError += "Cédula de Identidad, ";
+        }
+        if (this.jTxtNombre.getText().isEmpty()) {
+            mensajeError += "Nombres, ";
+        }
+        if (this.jTxtApellido.getText().isEmpty()) {
+            mensajeError += "Apellidos, ";
+        }
+        // Verifica si algún campo está vacío
+        if (!mensajeError.isEmpty()) {
+            // Remueve la última coma y espacio si existe en el mensaje de error
+            mensajeError = mensajeError.substring(0, mensajeError.length() - 2);
+            JOptionPane.showMessageDialog(this, "Por favor, completa los siguientes campos: " + mensajeError + ".", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Persona persona = getPersona();
+        if (persona == null) {
+            JOptionPane.showMessageDialog(this, "Error al crear la persona. Verifique la información proporcionada.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        BuscarSalidaBoletos buscarsalida = new BuscarSalidaBoletos(persona);
         buscarsalida.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnBuscarActionPerformed
@@ -163,6 +211,15 @@ public class MenuBoletos extends javax.swing.JFrame {
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnRegresarActionPerformed
+
+    private void jTxtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtIDKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) { // Si el carácter no es un dígito...
+            evt.consume(); // ...consume el evento para que no se agregue al texto.
+        } else if (jTxtID.getText().length() >= 10) { // Si ya hay 10 dígitos...
+            evt.consume(); // ...consume el evento para que no se agregue más.
+        }
+    }//GEN-LAST:event_jTxtIDKeyTyped
 
     /**
      * @param args the command line arguments
