@@ -6,16 +6,16 @@ package Vistas;
 
 /**
  *
- * @author Elkinnn
+ * @author elkin
  */
 public class Principal extends javax.swing.JFrame {
 
     /**
-     * Creates new form pRINCIPAL
+     * Creates new form MenuPrincipal
      */
     public Principal() {
         initComponents();
-        setLocationRelativeTo(null);  
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -27,49 +27,46 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jBtnEmpezar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 204));
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/jugar.png"))); // NOI18N
-        jButton1.setText("EMPEZAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnEmpezar.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
+        jBtnEmpezar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/jugar.png"))); // NOI18N
+        jBtnEmpezar.setText("INICIAR");
+        jBtnEmpezar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtnEmpezarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 510, 190, 80));
+        getContentPane().add(jBtnEmpezar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 500, 200, 90));
 
-        jLabel3.setFont(new java.awt.Font("Showcard Gothic", 3, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel3.setText("COPERATIVA ");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+        jLabel4.setFont(new java.awt.Font("Showcard Gothic", 3, 48)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel4.setText("COPERATIVA ");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Showcard Gothic", 3, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel2.setText("ESMERALDAS");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, -1, -1));
+        jLabel5.setFont(new java.awt.Font("Showcard Gothic", 3, 48)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel5.setText("ESMERALDAS");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, -1, -1));
 
-        jLabel1.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/fondoo.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoo.jpg"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 657, 651));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBtnEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEmpezarActionPerformed
         MenuPrincipal menu = new MenuPrincipal();
         menu.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBtnEmpezarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -98,6 +95,8 @@ public class Principal extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -108,9 +107,9 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jBtnEmpezar;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }
