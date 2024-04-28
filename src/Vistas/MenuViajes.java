@@ -244,7 +244,6 @@ public class MenuViajes extends javax.swing.JFrame {
 
             // Confirma que la nueva salida se ha añadido correctamente.
             JOptionPane.showMessageDialog(null, "La salida ha sido añadida exitosamente.");
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se pudo crear la salida: ");
         }
