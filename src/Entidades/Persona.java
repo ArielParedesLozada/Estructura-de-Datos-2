@@ -1,20 +1,15 @@
 package Entidades;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Persona {
     public String id;
     public String nombre, apellido;
-    public String destino;
-    public LocalDateTime horario;
 
-    public Persona(String id, String nombre, String apellido, String destino, LocalDateTime horario){
+    public Persona(String id, String nombre, String apellido){
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.destino = destino;
-        this.horario = horario;
     }
 
     @Override
@@ -27,7 +22,10 @@ public class Persona {
         if (this == obj) {
             return true;
         }
-        return (obj instanceof Persona) ? this.id.equals(((Persona) obj).id) : this.id.equals(obj);
+        if (obj instanceof Persona) {
+            return  this.id.equals(((Persona) obj).id);
+        }
+        return this.id.equals(obj);
     }
 
     @Override

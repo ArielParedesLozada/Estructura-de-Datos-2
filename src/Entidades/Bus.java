@@ -1,7 +1,5 @@
 package Entidades;
 
-import java.util.Objects;
-
 public class Bus {
 
     public String id;
@@ -23,12 +21,5 @@ public class Bus {
             return true;
         }
         return (obj instanceof Bus) ? this.id.equals(((Bus) obj).id) : this.id.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 73 * hash + Objects.hashCode(this.id);
-        return hash;
     }
 }

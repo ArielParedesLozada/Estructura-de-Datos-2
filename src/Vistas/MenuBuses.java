@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Elkinnn
+ * @author elkin
  */
 public class MenuBuses extends javax.swing.JFrame {
 
@@ -22,7 +22,8 @@ public class MenuBuses extends javax.swing.JFrame {
     public MenuBuses() {
         this.gestor = GestorDatos.iniciaGestor();
         initComponents();
-        setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -34,53 +35,43 @@ public class MenuBuses extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel = new javax.swing.JPanel();
+        JPanel = new javax.swing.JPanel();
         jLblBuses = new javax.swing.JLabel();
         jLblBus = new javax.swing.JLabel();
-        jLblNums = new javax.swing.JLabel();
         jLblId = new javax.swing.JLabel();
-        jLblPersonas = new javax.swing.JLabel();
         jTxtID = new javax.swing.JTextField();
-        jBtnRegresar = new javax.swing.JButton();
+        jLblNums = new javax.swing.JLabel();
+        jLblPersonas = new javax.swing.JLabel();
         jBtnGuardar = new java.awt.Button();
         jTxtNum = new javax.swing.JTextField();
+        jBtnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(51, 153, 255));
         setUndecorated(true);
-        setSize(new java.awt.Dimension(797, 379));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel.setForeground(new java.awt.Color(0, 153, 255));
+        JPanel.setBackground(new java.awt.Color(153, 153, 255));
 
-        jLblBuses.setFont(new java.awt.Font("Imprint MT Shadow", 1, 48)); // NOI18N
         jLblBuses.setText("VEHICULOS - BUSES");
+        jLblBuses.setFont(new java.awt.Font("Imprint MT Shadow", 1, 55)); // NOI18N
 
-        jLblBus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/buss.png"))); // NOI18N
+        jLblBus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buss.png"))); // NOI18N
 
-        jLblNums.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
-        jLblNums.setForeground(new java.awt.Color(51, 51, 51));
-        jLblNums.setText("CAPACIDAD TOTAL:");
-
-        jLblId.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
-        jLblId.setForeground(new java.awt.Color(51, 51, 51));
         jLblId.setText("IDENTIFICADOR:");
+        jLblId.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 27)); // NOI18N
+        jLblId.setForeground(new java.awt.Color(51, 51, 51));
 
-        jLblPersonas.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
+        jTxtID.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
+
+        jLblNums.setText("CAPACIDAD TOTAL:");
+        jLblNums.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 27)); // NOI18N
+        jLblNums.setForeground(new java.awt.Color(51, 51, 51));
+
         jLblPersonas.setText("PERSONAS");
-
-        jTxtID.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-
-        jBtnRegresar.setBackground(new java.awt.Color(255, 255, 204));
-        jBtnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/REGRESAR.png"))); // NOI18N
-        jBtnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnRegresarActionPerformed(evt);
-            }
-        });
+        jLblPersonas.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 25)); // NOI18N
 
         jBtnGuardar.setBackground(new java.awt.Color(255, 255, 204));
-        jBtnGuardar.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 18)); // NOI18N
+        jBtnGuardar.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 24)); // NOI18N
         jBtnGuardar.setLabel("GUARDAR");
         jBtnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,109 +79,154 @@ public class MenuBuses extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
-        jPanel.setLayout(jPanelLayout);
-        jPanelLayout.setHorizontalGroup(
-            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelLayout.createSequentialGroup()
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLblBus)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLblId)
-                                    .addComponent(jLblNums))
-                                .addGap(34, 34, 34)
-                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanelLayout.createSequentialGroup()
-                                        .addComponent(jTxtNum, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(9, 9, 9)
-                                        .addComponent(jLblPersonas))
-                                    .addComponent(jTxtID)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+        jTxtNum.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
+
+        jBtnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Boton.png"))); // NOI18N
+        jBtnRegresar.setBackground(new java.awt.Color(153, 153, 255));
+        jBtnRegresar.setBorder(null);
+        jBtnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRegresarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout JPanelLayout = new javax.swing.GroupLayout(JPanel);
+        JPanel.setLayout(JPanelLayout);
+        JPanelLayout.setHorizontalGroup(
+            JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPanelLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLblBus)
+                .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(JPanelLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLblId)
+                            .addComponent(jLblNums))
+                        .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                                .addComponent(jTxtNum, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(133, 133, 133))))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jBtnRegresar)
-                        .addGap(61, 61, 61)
-                        .addComponent(jLblBuses)))
-                .addContainerGap(64, Short.MAX_VALUE))
+                                .addComponent(jLblPersonas)
+                                .addGap(56, 56, 56))
+                            .addGroup(JPanelLayout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(jTxtID, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(JPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(216, 216, 216))))
+            .addGroup(JPanelLayout.createSequentialGroup()
+                .addGap(142, 142, 142)
+                .addComponent(jLblBuses, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtnRegresar)
+                .addGap(14, 14, 14))
         );
-        jPanelLayout.setVerticalGroup(
-            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelLayout.createSequentialGroup()
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLblBuses))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jBtnRegresar)))
-                .addGap(59, 59, 59)
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelLayout.createSequentialGroup()
+        JPanelLayout.setVerticalGroup(
+            JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtnRegresar)
+                    .addComponent(jLblBuses, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
                         .addComponent(jLblBus)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(JPanelLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLblId)
-                            .addComponent(jTxtID, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(52, 52, 52)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLblNums)
+                            .addComponent(jTxtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48)
+                        .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLblPersonas)
-                            .addComponent(jTxtNum, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                        .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))))
+                            .addComponent(jLblNums)
+                            .addComponent(jTxtNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37))))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(JPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 390));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        Menu menu = new Menu();
-        menu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jBtnRegresarActionPerformed
-
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
         Bus bus = null;
         try {
-            String idBus = this.jTxtID.getText();
-            int num = Integer.parseInt(this.jTxtNum.getText());
+            String idBus = this.jTxtID.getText().trim();
+            String numStr = this.jTxtNum.getText().trim();
+            // Verifica si alguno de los campos está vacío
+            if (idBus.isEmpty() || numStr.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe llenar ambos campos para crear el bus.");
+                return;
+            }
+            int num = Integer.parseInt(numStr);
             bus = new Bus(idBus, num);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "La capacidad debe ser un número entero.");
+            return;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se pudo crear el bus");
             return;
         }
         if (!this.gestor.addBus(bus)) {
-            JOptionPane.showMessageDialog(null, "No se pudo añadir el bus");
+            JOptionPane.showMessageDialog(null, "No se pudo añadir el bus, puede que ya exista un bus con ese identificador.");
             return;
         }
         JOptionPane.showMessageDialog(null, "Se añadió el bus al gestor");
     }//GEN-LAST:event_jBtnGuardarActionPerformed
 
+    private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
+        MenuPrincipal menu = new MenuPrincipal();
+        menu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnRegresarActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MenuBuses.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MenuBuses.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MenuBuses.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MenuBuses.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MenuBuses().setVisible(true);
+            }
+        });
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JPanel;
     private java.awt.Button jBtnGuardar;
     private javax.swing.JButton jBtnRegresar;
     private javax.swing.JLabel jLblBus;
@@ -198,7 +234,6 @@ public class MenuBuses extends javax.swing.JFrame {
     private javax.swing.JLabel jLblId;
     private javax.swing.JLabel jLblNums;
     private javax.swing.JLabel jLblPersonas;
-    private javax.swing.JPanel jPanel;
     private javax.swing.JTextField jTxtID;
     private javax.swing.JTextField jTxtNum;
     // End of variables declaration//GEN-END:variables
