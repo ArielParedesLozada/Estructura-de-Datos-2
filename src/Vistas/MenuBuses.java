@@ -160,15 +160,24 @@ public class MenuBuses extends javax.swing.JFrame {
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
         Bus bus = null;
         try {
-            String idBus = this.jTxtID.getText();
-            int num = Integer.parseInt(this.jTxtNum.getText());
+            String idBus = this.jTxtID.getText().trim();
+            String numStr = this.jTxtNum.getText().trim();
+            // Verifica si alguno de los campos está vacío
+            if (idBus.isEmpty() || numStr.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe llenar ambos campos para crear el bus.");
+                return;
+            }
+            int num = Integer.parseInt(numStr);
             bus = new Bus(idBus, num);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "La capacidad debe ser un número entero.");
+            return;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se pudo crear el bus");
             return;
         }
         if (!this.gestor.addBus(bus)) {
-            JOptionPane.showMessageDialog(null, "No se pudo añadir el bus");
+            JOptionPane.showMessageDialog(null, "No se pudo añadir el bus, puede que ya exista un bus con ese identificador.");
             return;
         }
         JOptionPane.showMessageDialog(null, "Se añadió el bus al gestor");
