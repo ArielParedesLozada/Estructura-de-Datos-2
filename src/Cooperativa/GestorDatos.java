@@ -5,6 +5,7 @@ import DataStructures.TablaHash;
 import Entidades.Bus;
 import Entidades.Persona;
 import Entidades.Salida;
+import java.util.HashSet;
 
 public class GestorDatos {
     public LinkedList<Bus> buses;
@@ -47,5 +48,24 @@ public class GestorDatos {
     
     public boolean removeSalida(Salida s){
         return this.salidas.remove(s);
+    }
+    
+    public HashSet<String> getDestinos(){
+        HashSet<String> destinos = new HashSet<>();
+        for (Salida salida : this.salidas) {
+            if (!destinos.contains(salida.destino)) {
+                destinos.add(salida.destino);
+            }
+        }
+        return destinos;
+    }
+    
+    public Salida buscarSalidaPorBusID(String busID) {
+        for (Salida salida : this.salidas) {
+            if (salida.getIDBus().equals(busID)) {
+                return salida;
+            }
+        }
+        return null; // Retornar null si no se encuentra ninguna salida con el ID de bus especificado
     }
 }
