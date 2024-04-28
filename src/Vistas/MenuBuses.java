@@ -52,23 +52,23 @@ public class MenuBuses extends javax.swing.JFrame {
 
         JPanel.setBackground(new java.awt.Color(153, 153, 255));
 
-        jLblBuses.setText("VEHICULOS - BUSES");
         jLblBuses.setFont(new java.awt.Font("Imprint MT Shadow", 1, 55)); // NOI18N
+        jLblBuses.setText("VEHICULOS - BUSES");
 
         jLblBus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buss.png"))); // NOI18N
 
-        jLblId.setText("IDENTIFICADOR:");
         jLblId.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 27)); // NOI18N
         jLblId.setForeground(new java.awt.Color(51, 51, 51));
+        jLblId.setText("IDENTIFICADOR:");
 
         jTxtID.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
 
-        jLblNums.setText("CAPACIDAD TOTAL:");
         jLblNums.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 27)); // NOI18N
         jLblNums.setForeground(new java.awt.Color(51, 51, 51));
+        jLblNums.setText("CAPACIDAD TOTAL:");
 
-        jLblPersonas.setText("PERSONAS");
         jLblPersonas.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 25)); // NOI18N
+        jLblPersonas.setText("PERSONAS");
 
         jBtnGuardar.setBackground(new java.awt.Color(255, 255, 204));
         jBtnGuardar.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 24)); // NOI18N
@@ -80,9 +80,14 @@ public class MenuBuses extends javax.swing.JFrame {
         });
 
         jTxtNum.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
+        jTxtNum.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTxtNumKeyTyped(evt);
+            }
+        });
 
-        jBtnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Boton.png"))); // NOI18N
         jBtnRegresar.setBackground(new java.awt.Color(153, 153, 255));
+        jBtnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Boton.png"))); // NOI18N
         jBtnRegresar.setBorder(null);
         jBtnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,6 +193,12 @@ public class MenuBuses extends javax.swing.JFrame {
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnRegresarActionPerformed
+
+    private void jTxtNumKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtNumKeyTyped
+        if (this.jTxtNum.getText().length() >= 2) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTxtNumKeyTyped
 
     /**
      * @param args the command line arguments
