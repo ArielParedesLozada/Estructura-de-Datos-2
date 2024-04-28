@@ -49,7 +49,7 @@ public class MenuViajes extends javax.swing.JFrame {
         }
         return fecha.atTime(hora);
     }
-    
+
     private LocalDateTime parseDateTimeFinal() {
         LocalTime hora = this.jBmxHoraLlegada.getTime();
         LocalDate fecha = this.jBmxFecha.getDate();
@@ -218,6 +218,12 @@ public class MenuViajes extends javax.swing.JFrame {
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
         try {
             // Obtén el destino y las horas de salida y llegada del viaje.
+            String busId = (String) jBmxBus.getSelectedItem();
+            if (busId.equals("Seleccione un Bus")) {
+                JOptionPane.showMessageDialog(null, "Por favor, selecciona un bus.");
+                return;
+            }
+
             String destino = this.jTxtDestino.getText();
             LocalDateTime horaSalida = parseDateTimeInicio(); // Utiliza jBmxHoraSalida
             LocalDateTime horaLlegada = parseDateTimeFinal(); // Utiliza jBmxHoraLlegada
@@ -225,6 +231,16 @@ public class MenuViajes extends javax.swing.JFrame {
             // Verifica que las fechas y horas estén correctamente establecidas.
             if (horaSalida == null || horaLlegada == null || horaSalida.isAfter(horaLlegada)) {
                 JOptionPane.showMessageDialog(null, "Por favor, verifica que las fechas y horas estén correctas y que la hora de salida sea antes de la hora de llegada.");
+                return;
+            }
+            if (horaSalida.isEqual(horaLlegada)) {
+                JOptionPane.showMessageDialog(null, "La hora de salida y de llegada no pueden ser iguales.");
+                return;
+            } else if (horaSalida.isAfter(horaLlegada)) {
+                JOptionPane.showMessageDialog(null, "La hora de salida debe ser antes de la hora de llegada.");
+                return;
+            } else if (horaLlegada.minusHours(1).isBefore(horaSalida)) {
+                JOptionPane.showMessageDialog(null, "La salida y llegada deben tener al menos una hora de diferencia.");
                 return;
             }
 
