@@ -4,18 +4,39 @@
  */
 package Vistas;
 
+import Cooperativa.GestorDatos;
+import Entidades.Salida;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author elkin
  */
 public class InformeBuses extends javax.swing.JFrame {
 
+    private GestorDatos gestor;
+
     /**
      * Creates new form InfomeBuses
      */
     public InformeBuses() {
+        this.gestor = GestorDatos.iniciaGestor();
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+
+    //Da el promedio de las ocupacion de un bus 
+    //Se calcula el promedio de las ocupaciones que tiene todas las salidas con ese bus
+    private float getPromedioBus(String bus) {
+        int i = 0;
+        float sum = 0;
+        for (Salida salida : this.gestor.salidas) {
+            if (salida.getIDBus().equals(bus)) {
+                sum += salida.getPromedio();
+                i++;
+            }
+        }
+        return (i > 0 ) ? (float) sum/i : -1;
     }
 
     /**
@@ -33,9 +54,9 @@ public class InformeBuses extends javax.swing.JFrame {
         jPnl0 = new javax.swing.JPanel();
         jBtnRegresar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTxtOcupacion = new javax.swing.JTextField();
         jLblOcupacion = new javax.swing.JLabel();
         jLblBus = new javax.swing.JLabel();
+        jLblNum = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 204));
@@ -47,11 +68,6 @@ public class InformeBuses extends javax.swing.JFrame {
         getContentPane().add(jLblBuses, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 620, 96));
 
         jTxtBusID.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
-        jTxtBusID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtBusIDActionPerformed(evt);
-            }
-        });
         getContentPane().add(jTxtBusID, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 212, -1));
 
         jBtnBus.setBackground(new java.awt.Color(255, 255, 204));
@@ -78,13 +94,6 @@ public class InformeBuses extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buss.png"))); // NOI18N
 
-        jTxtOcupacion.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
-        jTxtOcupacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtOcupacionActionPerformed(evt);
-            }
-        });
-
         jLblOcupacion.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 25)); // NOI18N
         jLblOcupacion.setForeground(new java.awt.Color(51, 51, 51));
         jLblOcupacion.setText("OCUPACIÓN:");
@@ -93,27 +102,32 @@ public class InformeBuses extends javax.swing.JFrame {
         jLblBus.setForeground(new java.awt.Color(51, 51, 51));
         jLblBus.setText("ID BUS:");
 
+        jLblNum.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 25)); // NOI18N
+        jLblNum.setForeground(new java.awt.Color(51, 51, 51));
+
         javax.swing.GroupLayout jPnl0Layout = new javax.swing.GroupLayout(jPnl0);
         jPnl0.setLayout(jPnl0Layout);
         jPnl0Layout.setHorizontalGroup(
             jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPnl0Layout.createSequentialGroup()
+                .addGap(141, 141, 141)
+                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLblBus)
+                        .addComponent(jLabel2))
+                    .addGroup(jPnl0Layout.createSequentialGroup()
+                        .addComponent(jLblOcupacion)
+                        .addGap(146, 146, 146)))
+                .addContainerGap(230, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnl0Layout.createSequentialGroup()
-                .addContainerGap(140, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnl0Layout.createSequentialGroup()
                         .addComponent(jBtnRegresar)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnl0Layout.createSequentialGroup()
-                        .addComponent(jLblOcupacion)
-                        .addGap(26, 26, 26)
-                        .addComponent(jTxtOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(138, 138, 138))))
-            .addGroup(jPnl0Layout.createSequentialGroup()
-                .addGap(215, 215, 215)
-                .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLblBus)
-                    .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLblNum, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(137, 137, 137))))
         );
         jPnl0Layout.setVerticalGroup(
             jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,11 +138,11 @@ public class InformeBuses extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(27, 27, 27)
                 .addComponent(jLblBus)
-                .addGap(36, 36, 36)
+                .addGap(47, 47, 47)
                 .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLblNum, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLblOcupacion))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPnl0, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 510));
@@ -136,16 +150,18 @@ public class InformeBuses extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTxtBusIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtBusIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtBusIDActionPerformed
-
-    private void jTxtOcupacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtOcupacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtOcupacionActionPerformed
-
     private void jBtnBusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBusActionPerformed
-
+        String bus = this.jTxtBusID.getText();
+        try {
+            float promedio = getPromedioBus(bus);
+            if (promedio < 0) {
+                JOptionPane.showMessageDialog(null, "No existen salidas regsitradas para el bus");
+                return;
+            }
+            this.jLblNum.setText(Float.toString(promedio)+" %");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un problema al buscar el promedio");
+        }
     }//GEN-LAST:event_jBtnBusActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
@@ -198,9 +214,9 @@ public class InformeBuses extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLblBus;
     private javax.swing.JLabel jLblBuses;
+    private javax.swing.JLabel jLblNum;
     private javax.swing.JLabel jLblOcupacion;
     private javax.swing.JPanel jPnl0;
     private javax.swing.JTextField jTxtBusID;
-    private javax.swing.JTextField jTxtOcupacion;
     // End of variables declaration//GEN-END:variables
 }
