@@ -1,7 +1,5 @@
 package Entidades;
 
-import java.util.Objects;
-
 public class Bus {
 
     public String id;
