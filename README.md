@@ -7,3 +7,7 @@ El sistema deberá generar reportes de:
 1) Nivel de ocupación por horario (promedio para todos los buses que salgan en una franja horaria dada).
 2) Nivel de ocupación por bus.
 3) Boletos comprados por un pasajero (a partir de su cédula de identidad). Este reporte incluye el listado del detalle de cada boleto y, al final del reporte, aparecerá la cantidad total de boletos que ha comprado.
+
+
+# Modificacion para Patrones de Diseño (09/04/2025)
+Usa principios SOLID para reescribir el código
