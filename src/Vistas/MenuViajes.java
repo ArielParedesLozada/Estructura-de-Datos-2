@@ -34,7 +34,7 @@ public class MenuViajes extends javax.swing.JFrame {
 
     private void setBmx() {
         this.bmxModel = new DefaultComboBoxModel<>();
-        for (Bus bus : this.gestor.buses) {
+        for (Bus bus : this.gestor.gestorBuses.buses) {
             this.bmxModel.addElement(bus.id);
         }
         this.jBmxBus.setModel(bmxModel);
@@ -66,7 +66,7 @@ public class MenuViajes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado un bus.");
             return null; // Retorna null para evitar seguir adelante con valores no válidos.
         }
-        Bus bus = this.gestor.buses.find(id);
+        Bus bus = this.gestor.gestorBuses.buses.find(id);
         if (bus == null) {
             JOptionPane.showMessageDialog(null, "El bus seleccionado no existe.");
         }
@@ -253,7 +253,7 @@ public class MenuViajes extends javax.swing.JFrame {
             Salida nuevaSalida = new Salida(destino, horaSalida, horaLlegada, bus);
 
             // Verifica si se puede añadir la nueva salida sin conflictos de horario.
-            if (!this.gestor.addSalida(nuevaSalida)) {
+            if (!this.gestor.gestorSalidas.addSalida(nuevaSalida)) {
                 JOptionPane.showMessageDialog(null, "Ya existe un viaje programado para este bus en el rango horario especificado.");
                 return;
             }

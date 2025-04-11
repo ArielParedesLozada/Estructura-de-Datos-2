@@ -68,13 +68,13 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
     //Devuelve la salida seleccionada una vez se tiene el 
     private Salida getSelectedSalida() {
         String salida = (String) this.jBmxSalida.getSelectedItem();
-        return this.gestor.salidas.find(salida);//Se utiliza el otro sistema para buscar
+        return this.gestor.gestorSalidas.salidas.find(salida);//Se utiliza el otro sistema para buscar
     }
 
     //Setea el comboBox de los asientos dado 
     private void setAsientos(Salida salida) {
         DefaultComboBoxModel jBmxModelAsientos = new DefaultComboBoxModel<>();
-        for (int asiento : salida.asientosDisponibles()) {
+        for (int asiento : salida.asientos.asientosDisponibles()) {
             jBmxModelAsientos.addElement(asiento);
         }
         this.jBmxAsiento.setModel(jBmxModelAsientos);
@@ -238,11 +238,11 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
         try {
             int asiento = (int) this.jBmxAsiento.getSelectedItem();
             Salida salida = getSelectedSalida();
-            if (!salida.addPasajeroAt(asiento, this.persona)) {
+            if (!salida.asientos.addPasajeroAt(asiento, this.persona)) {
                 JOptionPane.showMessageDialog(null, "No se pudo añadir la persona a la salida");
                 return;
             }
-            if (!this.gestor.addBoleto(this.persona, salida)) {
+            if (!this.gestor.gestorRegistro.addBoleto(this.persona, salida)) {
                 JOptionPane.showMessageDialog(null, "No se pudo añadir la salida al resgitro");
                 return;
             }

@@ -30,9 +30,9 @@ public class InformeBuses extends javax.swing.JFrame {
     private float getPromedioBus(String bus) {
         int i = 0;
         float sum = 0;
-        for (Salida salida : this.gestor.salidas) {
+        for (Salida salida : this.gestor.gestorSalidas.salidas) {
             if (salida.getIDBus().equals(bus)) {
-                sum += salida.getPromedio();
+                sum += salida.asientos.getPromedio();
                 i++;
             }
         }
