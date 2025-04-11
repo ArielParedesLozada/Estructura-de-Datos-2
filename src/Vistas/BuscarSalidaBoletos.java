@@ -57,7 +57,7 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
     //Setea la tabla de salidas con las columnas iniciales
     private void setSalidas(String destino) {
         DefaultComboBoxModel jBmxModelSalidas = new DefaultComboBoxModel<>();
-        for (Salida salida : this.gestor.salidas) {
+        for (Salida salida : this.gestor.gestorSalidas.salidas) {
             if (salida.destino.equals(destino)) {
                 jBmxModelSalidas.addElement(salida.toString());
             }
