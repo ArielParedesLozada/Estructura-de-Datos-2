@@ -7,11 +7,19 @@ package Vistas;
 import Cooperativa.GestorDatos;
 import Entidades.Bus;
 import Entidades.Salida;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -27,9 +35,14 @@ public class MenuViajes extends javax.swing.JFrame {
      */
     public MenuViajes() {
         this.gestor = GestorDatos.iniciaGestor();
+        setUndecorated(true);
         initComponents();
         setBmx();
         setLocationRelativeTo(null);
+        setOpacity(0f);
+        interfazMejoras();
+        animarApertura();
+
     }
 
     private void setBmx() {
@@ -38,6 +51,85 @@ public class MenuViajes extends javax.swing.JFrame {
             this.bmxModel.addElement(bus.id);
         }
         this.jBmxBus.setModel(bmxModel);
+    }
+
+    private void interfazMejoras() {
+        jPnl0.setBackground(new Color(173, 216, 230));
+        jBtnGuardar.setBackground(new Color(230, 230, 250));
+        jBtnGuardar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        jBtnGuardar.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                jBtnGuardar.setBackground(new Color(255, 241, 150));
+            }
+
+            public void mouseExited(MouseEvent evt) {
+                jBtnGuardar.setBackground(new Color(230, 230, 250));
+            }
+        });
+
+        jLblImagen.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                jLblImagen.setSize(jLblImagen.getWidth() + 10, jLblImagen.getHeight() + 10); // crece
+            }
+
+            public void mouseExited(MouseEvent evt) {
+                jLblImagen.setSize(jLblImagen.getWidth() - 10, jLblImagen.getHeight() - 10); // vuelve
+            }
+        });
+
+        jLblSalida.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                jLblSalida.setFont(new Font("Imprint MT Shadow", Font.BOLD, 59)); // crece
+                jLblSalida.setForeground(new Color(255, 204, 0)); // color dorado
+            }
+
+            public void mouseExited(MouseEvent evt) {
+                jLblSalida.setFont(new Font("Imprint MT Shadow", Font.BOLD, 55)); // original
+                jLblSalida.setForeground(Color.BLACK);
+            }
+        });
+    }
+
+    private void animarApertura() {
+        Timer timer = new Timer(20, null);
+        timer.addActionListener(new ActionListener() {
+            float opacidad = 0f;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                opacidad += 0.05f;
+                if (opacidad >= 1f) {
+                    opacidad = 1f;
+                    timer.stop();
+                }
+                setOpacity(opacidad);
+            }
+        });
+        timer.start();
+    }
+
+    private void animarCierre(Runnable despuesDeCerrar) {
+        Timer timer = new Timer(20, null);
+        timer.addActionListener(new ActionListener() {
+            float opacidad = 1f;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                opacidad -= 0.05f;
+                if (opacidad <= 0f) {
+                    opacidad = 0f;
+                    ((Timer) e.getSource()).stop();
+                    setOpacity(opacidad);
+                    dispose();
+                    if (despuesDeCerrar != null) {
+                        despuesDeCerrar.run(); // Ejecuta lo que sigue
+                    }
+                } else {
+                    setOpacity(opacidad);
+                }
+            }
+        });
+        timer.start();
     }
 
     private LocalDateTime parseDateTimeInicio() {
@@ -145,6 +237,7 @@ public class MenuViajes extends javax.swing.JFrame {
         });
 
         jBtnGuardar.setBackground(new java.awt.Color(255, 255, 204));
+        jBtnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBtnGuardar.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 24)); // NOI18N
         jBtnGuardar.setLabel("GUARDAR");
         jBtnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -205,7 +298,7 @@ public class MenuViajes extends javax.swing.JFrame {
                 .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLblHoraLlegada)
                     .addComponent(jBmxHoraLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -267,9 +360,10 @@ public class MenuViajes extends javax.swing.JFrame {
 
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
-        this.dispose();
+        animarCierre(() -> {
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.setVisible(true);
+        });
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     /**
