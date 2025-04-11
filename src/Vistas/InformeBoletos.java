@@ -33,7 +33,7 @@ public class InformeBoletos extends javax.swing.JFrame {
         tblModel.addColumn("Destino");
         tblModel.addColumn("Hora salida");
         tblModel.addColumn("Hora Llegada");
-        for (Salida salida : this.gestor.registro.getValues(id)) {//Se busac en la tablaHash del registro. Tiene al usuario y sus salidas asociadas
+        for (Salida salida : this.gestor.gestorRegistro.registro.getValues(id)) {//Se busac en la tablaHash del registro. Tiene al usuario y sus salidas asociadas
             tblModel.addRow(new Object[]{salida.getIDBus(), salida.destino, salida.horaSalida.toString(), salida.horaLlegada.toString()});
         }
         this.jTblPersonas.setModel(tblModel);
@@ -195,7 +195,7 @@ public class InformeBoletos extends javax.swing.JFrame {
         String pasajeroID = jTxtID.getText().trim(); // Obtiene el ID del pasajero
         try {
             setTable(pasajeroID);
-            int total = this.gestor.registro.sizeValues(pasajeroID);
+            int total = this.gestor.gestorRegistro.registro.sizeValues(pasajeroID);
             this.jLblNum.setText(Integer.toString(total));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Id no registrado");

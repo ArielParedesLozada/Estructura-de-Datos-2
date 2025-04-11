@@ -181,7 +181,7 @@ public class MenuBuses extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se pudo crear el bus");
             return;
         }
-        if (!this.gestor.addBus(bus)) {
+        if (!this.gestor.gestorBuses.addBus(bus)) {
             JOptionPane.showMessageDialog(null, "No se pudo añadir el bus, puede que ya exista un bus con ese identificador.");
             return;
         }

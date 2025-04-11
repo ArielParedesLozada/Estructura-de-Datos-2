@@ -61,10 +61,10 @@ private GestorDatos gestor;
         this.tblModel = new DefaultTableModel();
         this.tblModel.addColumn("ID");
         this.tblModel.addColumn("Ocupacion");
-        for (Salida salida : this.gestor.salidas) {
+        for (Salida salida : this.gestor.gestorSalidas.salidas) {
             if (t1 != null && t2 != null && salida.betweenTime(t1, t2)) {
-                this.tblModel.addRow(new Object[]{salida.getIDBus(), salida.getPromedio()});
-                sum += salida.getPromedio();
+                this.tblModel.addRow(new Object[]{salida.getIDBus(), salida.asientos.getPromedio()});
+                sum += salida.asientos.getPromedio();
                 i++;
             }
         }
