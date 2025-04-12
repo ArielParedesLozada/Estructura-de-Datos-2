@@ -4,11 +4,15 @@
  */
 package Vistas;
 
+import Cooperativa.BaseUI.VentanaAnimada;
+import java.awt.Color;
+import java.awt.Font;
+
 /**
  *
  * @author elkin
  */
-public class MenuInforme extends javax.swing.JFrame {
+public class MenuInforme extends VentanaAnimada {
 
     /**
      * Creates new form MenuInforme
@@ -16,6 +20,27 @@ public class MenuInforme extends javax.swing.JFrame {
     public MenuInforme() {
         initComponents();
         this.setLocationRelativeTo(null);
+        interfazMejoras();
+    }
+
+    private void interfazMejoras() {
+        // Fondo general
+        jPanel1.setBackground(new Color(173, 216, 230)); // Azul suave
+
+        // Hover para los botones
+        aplicarHoverBoton(jBtnBoletos, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnBuses, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnSalidas, new Color(230, 230, 250), new Color(255, 241, 150));
+
+        // Zoom + color para el título
+        aplicarHoverZoom(
+                jLabel1,
+                4,
+                new Font("Arial Black", Font.BOLD, 49),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
     }
 
     /**
@@ -128,9 +153,7 @@ public class MenuInforme extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalirActionPerformed
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
-        this.dispose();
+      animarCierre(() -> new MenuPrincipal().setVisible(true));
     }//GEN-LAST:event_jBtnSalirActionPerformed
 
     private void jBtnBusesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBusesActionPerformed

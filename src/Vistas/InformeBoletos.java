@@ -4,6 +4,7 @@
  */
 package Vistas;
 
+import Cooperativa.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
 import Entidades.Salida;
 import javax.swing.JOptionPane;
@@ -13,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author elkin
  */
-public class InformeBoletos extends javax.swing.JFrame {
+public class InformeBoletos extends VentanaAnimada {
 
     private GestorDatos gestor;
 

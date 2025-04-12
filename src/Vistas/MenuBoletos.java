@@ -4,6 +4,7 @@
  */
 package Vistas;
 
+import Cooperativa.BaseUI.VentanaAnimada;
 import Entidades.Persona;
 import javax.swing.JOptionPane;
 
@@ -11,7 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author elkin
  */
-public class MenuBoletos extends javax.swing.JFrame {
+public class MenuBoletos extends VentanaAnimada {
 
     /**
      * Creates new form MenuBoleto

@@ -4,6 +4,7 @@
  */
 package Vistas;
 
+import Cooperativa.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
 import Entidades.Persona;
 import Entidades.Salida;
@@ -14,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author elkin
  */
-public class BuscarSalidaBoletos extends javax.swing.JFrame {
+public class BuscarSalidaBoletos extends VentanaAnimada {
 
     private GestorDatos gestor;
     private Persona persona;

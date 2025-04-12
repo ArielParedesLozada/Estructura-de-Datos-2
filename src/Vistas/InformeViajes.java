@@ -4,6 +4,7 @@
  */
 package Vistas;
 
+import Cooperativa.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
 import Entidades.Salida;
 import com.github.lgooddatepicker.components.DatePicker;
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author elkin
  */
-public class InformeViajes extends javax.swing.JFrame {
+public class InformeViajes extends VentanaAnimada {
 private GestorDatos gestor;
     private DefaultTableModel tblModel;
 

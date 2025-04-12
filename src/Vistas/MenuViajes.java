@@ -8,7 +8,6 @@ import Cooperativa.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
 import Entidades.Bus;
 import Entidades.Salida;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -49,12 +48,10 @@ public class MenuViajes extends VentanaAnimada {
     }
 
     private void interfazMejoras() {
-        jPnl0.setBackground(new Color(173, 216, 230)); // Fondo general
+        jPnl0.setBackground(new Color(173, 216, 230)); 
 
-        // Animación de hover sobre el botón GUARDAR
         aplicarHoverBoton(jBtnGuardar, new Color(230, 230, 250), new Color(255, 241, 150));
 
-        // Animación sobre el TÍTULO jLblSalida
         aplicarHoverZoom(
                 jLblSalida,
                 4,
@@ -64,7 +61,6 @@ public class MenuViajes extends VentanaAnimada {
                 new Color(255, 204, 0)
         );
 
-        // Efecto de zoom sobre la imagen (manualmente, porque no es texto)
         jLblImagen.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent evt) {
