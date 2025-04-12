@@ -188,6 +188,7 @@ public class InformeViajes extends VentanaAnimada {
 
         jBtnBuscar.setBackground(new java.awt.Color(255, 255, 204));
         jBtnBuscar.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 24)); // NOI18N
+        jBtnBuscar.setForeground(new java.awt.Color(51, 51, 51));
         jBtnBuscar.setLabel("BUSCAR");
         jBtnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

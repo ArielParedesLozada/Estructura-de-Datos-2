@@ -181,6 +181,7 @@ aplicarHoverBoton(jBtnGuardar, new Color(230, 230, 250), new Color(255, 241, 150
         jBtnGuardar.setBackground(new java.awt.Color(255, 255, 204));
         jBtnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBtnGuardar.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 24)); // NOI18N
+        jBtnGuardar.setForeground(new java.awt.Color(51, 51, 51));
         jBtnGuardar.setLabel("GUARDAR");
         jBtnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
