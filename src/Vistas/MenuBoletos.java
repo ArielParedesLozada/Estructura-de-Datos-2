@@ -243,9 +243,7 @@ public class MenuBoletos extends VentanaAnimada {
     }//GEN-LAST:event_jBtnBuscarActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
-        this.dispose();
+         animarCierre(() -> new MenuPrincipal().setVisible(true));
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     private void jTxtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtIDKeyTyped

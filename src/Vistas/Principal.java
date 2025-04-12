@@ -5,6 +5,8 @@
 package Vistas;
 
 import Cooperativa.BaseUI.VentanaAnimada;
+import java.awt.Color;
+import java.awt.Font;
 
 /**
  *
@@ -18,6 +20,31 @@ public class Principal extends VentanaAnimada {
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
+        interfazMejoras();
+    }
+
+    private void interfazMejoras() {
+
+        // Botón Guardar (amarillo pastel al pasar el mouse)
+        aplicarHoverBoton(jBtnEmpezar, new Color(230, 230, 250), new Color(255, 241, 150));
+
+        // Animación de zoom y cambio de color en el título
+        aplicarHoverZoom(
+                jLabel5,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.CYAN,
+                new Color(255, 204, 0)
+        );
+        aplicarHoverZoom(
+                jLabel4,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.CYAN,
+                new Color(255, 204, 0)
+        );
     }
 
     /**

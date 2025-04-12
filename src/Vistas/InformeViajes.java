@@ -278,9 +278,7 @@ public class InformeViajes extends VentanaAnimada {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        MenuInforme menu = new MenuInforme();
-        menu.setVisible(true);
-        this.dispose();
+        animarCierre(() -> new MenuInforme().setVisible(true));
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed

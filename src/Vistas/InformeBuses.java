@@ -7,13 +7,17 @@ package Vistas;
 import Cooperativa.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
 import Entidades.Salida;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author elkin
  */
-public class InformeBuses extends VentanaAnimada{
+public class InformeBuses extends VentanaAnimada {
 
     private GestorDatos gestor;
 
@@ -24,6 +28,38 @@ public class InformeBuses extends VentanaAnimada{
         this.gestor = GestorDatos.iniciaGestor();
         initComponents();
         this.setLocationRelativeTo(null);
+        interfazMejoras();
+    }
+    
+    private void interfazMejoras() {
+        // Fondo azul claro
+        jPnl0.setBackground(new Color(173, 216, 230));
+
+        // Botones con hover (aunque algunos estén deshabilitados al inicio)
+        aplicarHoverBoton(jBtnBus, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(230, 230, 250), new Color(255, 241, 150));
+
+        // Título animado
+        aplicarHoverZoom(
+                jLblBuses,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
+        
+        jLabel2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                jLabel2.setSize(jLabel2.getWidth() + 10, jLabel2.getHeight() + 10);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                jLabel2.setSize(jLabel2.getWidth() - 10, jLabel2.getHeight() - 10);
+            }
+        });
     }
 
     //Da el promedio de las ocupacion de un bus 
@@ -37,7 +73,7 @@ public class InformeBuses extends VentanaAnimada{
                 i++;
             }
         }
-        return (i > 0 ) ? (float) sum/i : -1;
+        return (i > 0) ? (float) sum / i : -1;
     }
 
     /**
@@ -159,16 +195,14 @@ public class InformeBuses extends VentanaAnimada{
                 JOptionPane.showMessageDialog(null, "No existen salidas regsitradas para el bus");
                 return;
             }
-            this.jLblNum.setText(Float.toString(promedio)+" %");
+            this.jLblNum.setText(Float.toString(promedio) + " %");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Hubo un problema al buscar el promedio");
         }
     }//GEN-LAST:event_jBtnBusActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        MenuInforme menu = new MenuInforme();
-        menu.setVisible(true);
-        this.dispose();
+        animarCierre(() -> new MenuInforme().setVisible(true));
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     /**

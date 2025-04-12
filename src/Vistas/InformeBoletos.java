@@ -7,6 +7,8 @@ package Vistas;
 import Cooperativa.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
 import Entidades.Salida;
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,6 +27,39 @@ public class InformeBoletos extends VentanaAnimada {
         this.gestor = GestorDatos.iniciaGestor();
         initComponents();
         this.setLocationRelativeTo(null);
+        interfazMejoras();
+    }
+
+    private void interfazMejoras() {
+        // Fondo suave 
+        jPanel1.setBackground(new Color(173, 216, 230));
+
+        // Hover para botones
+        aplicarHoverBoton(jBtnBuscar, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(230, 230, 250), new Color(255, 241, 150));
+
+        // Animación para el título
+        aplicarHoverZoom(
+                jLabel1,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
+
+        // Imagen: efecto zoom suave
+        jLblPersonas.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLblPersonas.setSize(jLblPersonas.getWidth() + 10, jLblPersonas.getHeight() + 10);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLblPersonas.setSize(jLblPersonas.getWidth() - 10, jLblPersonas.getHeight() - 10);
+            }
+        });
     }
 
     //Método para obtener las salidas del registro y setear la tabla. Eficiente
@@ -204,9 +239,7 @@ public class InformeBoletos extends VentanaAnimada {
     }//GEN-LAST:event_jBtnBuscarActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        MenuInforme menu = new MenuInforme();
-        menu.setVisible(true);
-        this.dispose();
+        animarCierre(() -> new MenuInforme().setVisible(true));
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     private void jTxtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtIDKeyTyped
@@ -248,9 +281,7 @@ public class InformeBoletos extends VentanaAnimada {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
         //</editor-fold>
-
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

@@ -8,6 +8,8 @@ import Cooperativa.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
 import Entidades.Persona;
 import Entidades.Salida;
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -33,6 +35,26 @@ public class BuscarSalidaBoletos extends VentanaAnimada {
         this.jBmxSalida.setEnabled(false);
         this.jBtnGuardar.setEnabled(false);
         setDestinos();
+        interfazMejoras();
+    }
+
+    private void interfazMejoras() {
+        // Fondo azul claro
+        jPnl0.setBackground(new Color(173, 216, 230));
+
+        // Botones con hover (aunque algunos estén deshabilitados al inicio)
+        aplicarHoverBoton(jBtnGuardar, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(230, 230, 250), new Color(255, 241, 150));
+
+        // Título animado
+        aplicarHoverZoom(
+                jLblCompra,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
     }
 
     public BuscarSalidaBoletos() {
@@ -256,9 +278,7 @@ public class BuscarSalidaBoletos extends VentanaAnimada {
     }//GEN-LAST:event_jBtnGuardarActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        MenuBoletos menuboletos = new MenuBoletos();
-        menuboletos.setVisible(true);
-        this.dispose();
+        animarCierre(() -> new MenuBoletos().setVisible(true));
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     private void jBmxSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmxSalidaActionPerformed
