@@ -169,12 +169,6 @@ public class MenuPrincipal extends VentanaAnimada {
         this.dispose();;
     }//GEN-LAST:event_jBtnSalidasActionPerformed
 
-    private void jBtnBusesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBusesActionPerformed
-        MenuBuses mb = new MenuBuses();
-        mb.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jBtnBusesActionPerformed
-
     private void jBtnBoletosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBoletosActionPerformed
         MenuBoletos mu = new MenuBoletos();
         mu.setVisible(true);
@@ -184,6 +178,12 @@ public class MenuPrincipal extends VentanaAnimada {
     private void jBtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalirActionPerformed
         animarCierre(() -> System.exit(0));
     }//GEN-LAST:event_jBtnSalirActionPerformed
+
+    private void jBtnBusesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBusesActionPerformed
+        MenuBuses mb = new MenuBuses();
+        mb.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnBusesActionPerformed
 
     /**
      * @param args the command line arguments

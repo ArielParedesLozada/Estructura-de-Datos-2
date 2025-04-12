@@ -26,25 +26,25 @@ public class Principal extends VentanaAnimada {
     private void interfazMejoras() {
 
         // Botón Guardar (amarillo pastel al pasar el mouse)
-        aplicarHoverBoton(jBtnEmpezar, new Color(230, 230, 250), new Color(255, 241, 150));
+        //aplicarHoverBoton(jLabel1, new Color(230, 230, 250), new Color(255, 241, 150));
 
         // Animación de zoom y cambio de color en el título
-        aplicarHoverZoom(
-                jLabel5,
-                4,
-                new Font("Arial Black", Font.BOLD, 50),
-                new Font("Arial Black", Font.BOLD, 52),
-                Color.CYAN,
-                new Color(255, 204, 0)
-        );
-        aplicarHoverZoom(
-                jLabel4,
-                4,
-                new Font("Arial Black", Font.BOLD, 50),
-                new Font("Arial Black", Font.BOLD, 52),
-                Color.CYAN,
-                new Color(255, 204, 0)
-        );
+//        aplicarHoverZoom(
+//                jLabel5,
+//                4,
+//                new Font("Serif", Font.BOLD, 50),
+//                new Font("Serif", Font.BOLD, 52),
+//                Color.CYAN,
+//                new Color(255, 204, 0)
+//        );
+//        aplicarHoverZoom(
+//                jLabel4,
+//                4,
+//                new Font("Arial Black", Font.BOLD, 50),
+//                new Font("Arial Black", Font.BOLD, 52),
+//                Color.CYAN,
+//                new Color(255, 204, 0)
+//        );
     }
 
     /**
@@ -56,46 +56,42 @@ public class Principal extends VentanaAnimada {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jBtnEmpezar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jBtnEmpezar.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
-        jBtnEmpezar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/jugar.png"))); // NOI18N
-        jBtnEmpezar.setText("INICIAR");
-        jBtnEmpezar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnEmpezarActionPerformed(evt);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/playButton.png"))); // NOI18N
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
             }
         });
-        getContentPane().add(jBtnEmpezar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 500, 200, 90));
+        jLabel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabel1KeyPressed(evt);
+            }
+        });
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 80, 80));
 
-        jLabel4.setFont(new java.awt.Font("Showcard Gothic", 3, 48)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel4.setText("COPERATIVA ");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Showcard Gothic", 3, 48)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel5.setText("ESMERALDAS");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, -1, -1));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoo.jpg"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 657, 651));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBtnEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEmpezarActionPerformed
-        animarCierre(() -> {
+    private void jLabel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel1KeyPressed
+
+    }//GEN-LAST:event_jLabel1KeyPressed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+                animarCierre(() -> {
             new MenuPrincipal().setVisible(true);
         });
-    }//GEN-LAST:event_jBtnEmpezarActionPerformed
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -136,9 +132,7 @@ public class Principal extends VentanaAnimada {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnEmpezar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }
