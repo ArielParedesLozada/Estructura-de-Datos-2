@@ -9,6 +9,8 @@ import Cooperativa.GestorDatos;
 import Entidades.Salida;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.TimePicker;
+import java.awt.Color;
+import java.awt.Font;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -20,7 +22,8 @@ import javax.swing.table.DefaultTableModel;
  * @author elkin
  */
 public class InformeViajes extends VentanaAnimada {
-private GestorDatos gestor;
+
+    private GestorDatos gestor;
     private DefaultTableModel tblModel;
 
     /**
@@ -32,6 +35,39 @@ private GestorDatos gestor;
         this.setDefaultCloseOperation(2);
         this.setLocationRelativeTo(null);
         setTable();
+        interfazMejoras();
+    }
+
+    private void interfazMejoras() {
+        // Fondo para el panel principal
+        jPnl0.setBackground(new Color(173, 216, 230)); // Azul suave
+
+        // Botones con efecto hover
+        aplicarHoverBoton(jBtnBuscar, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(230, 230, 250), new Color(255, 241, 150));
+
+        // Animación para el título
+        aplicarHoverZoom(
+                jLblSalidas,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
+
+        // Imagen con efecto zoom al pasar el mouse
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2.setSize(jLabel2.getWidth() + 10, jLabel2.getHeight() + 10);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2.setSize(jLabel2.getWidth() - 10, jLabel2.getHeight() - 10);
+            }
+        });
     }
 
     private LocalDateTime parseDateTime(TimePicker time, DatePicker date) {
