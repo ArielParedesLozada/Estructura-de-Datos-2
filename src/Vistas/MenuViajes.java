@@ -51,6 +51,7 @@ public class MenuViajes extends VentanaAnimada {
         jPnl0.setBackground(new Color(173, 216, 230)); 
 
         aplicarHoverBoton(jBtnGuardar, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(255, 200, 200), new Color(255, 100, 100));
 
         aplicarHoverZoom(
                 jLblSalida,

@@ -38,6 +38,7 @@ public class MenuBuses extends VentanaAnimada {
 
         // Botón Guardar (amarillo pastel al pasar el mouse)
         aplicarHoverBoton(jBtnGuardar, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(255, 200, 200), new Color(255, 100, 100));
 
         // Animación de zoom y cambio de color en el título
         aplicarHoverZoom(

@@ -31,6 +31,7 @@ public class MenuInforme extends VentanaAnimada {
         aplicarHoverBoton(jBtnBoletos, new Color(230, 230, 250), new Color(255, 241, 150));
         aplicarHoverBoton(jBtnBuses, new Color(230, 230, 250), new Color(255, 241, 150));
         aplicarHoverBoton(jBtnSalidas, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnSalir, new Color(255, 200, 200), new Color(255, 100, 100));
 
         // Zoom + color para el título
         aplicarHoverZoom(

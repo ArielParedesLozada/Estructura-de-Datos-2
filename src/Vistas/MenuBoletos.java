@@ -6,6 +6,8 @@ package Vistas;
 
 import Cooperativa.BaseUI.VentanaAnimada;
 import Entidades.Persona;
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +22,7 @@ public class MenuBoletos extends VentanaAnimada {
     public MenuBoletos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        interfazMejoras();
     }
 
     private boolean cedulaValida() {
@@ -37,6 +40,38 @@ public class MenuBoletos extends VentanaAnimada {
             return null;
         }
         return persona;
+    }
+
+    private void interfazMejoras() {
+        // Fondo claro para el panel principal
+        jPnl0.setBackground(new Color(173, 216, 230)); // Azul claro
+
+        // Hover en botones
+        aplicarHoverBoton(jBtnBuscar, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(230, 230, 250), new Color(255, 241, 150));
+
+        // Animación para el título
+        aplicarHoverZoom(
+                jLblCompra,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
+
+        // Efecto de zoom en la imagen
+        jLblImg.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLblImg.setSize(jLblImg.getWidth() + 10, jLblImg.getHeight() + 10);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLblImg.setSize(jLblImg.getWidth() - 10, jLblImg.getHeight() - 10);
+            }
+        });
     }
 
     /**
