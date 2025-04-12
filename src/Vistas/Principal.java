@@ -4,11 +4,13 @@
  */
 package Vistas;
 
+import Cooperativa.BaseUI.VentanaAnimada;
+
 /**
  *
  * @author elkin
  */
-public class Principal extends javax.swing.JFrame {
+public class Principal extends VentanaAnimada {
 
     /**
      * Creates new form MenuPrincipal
@@ -63,9 +65,9 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEmpezarActionPerformed
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
-        this.dispose();
+        animarCierre(() -> {
+            new MenuPrincipal().setVisible(true);
+        });
     }//GEN-LAST:event_jBtnEmpezarActionPerformed
 
     /**

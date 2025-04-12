@@ -71,9 +71,9 @@ public abstract class VentanaAnimada extends JFrame {
         timer.start();
     }
 
-    protected void aplicarHoverBoton(JButton boton, Color normal, Color hover) {
-        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    protected void aplicarHoverBoton(java.awt.Component boton, Color normal, Color hover) {
         boton.setBackground(normal);
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         boton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent evt) {

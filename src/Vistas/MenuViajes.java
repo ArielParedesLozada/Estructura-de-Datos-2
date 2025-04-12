@@ -4,14 +4,13 @@
  */
 package Vistas;
 
+import Cooperativa.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
 import Entidades.Bus;
 import Entidades.Salida;
+import java.awt.Button;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
@@ -19,13 +18,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 /**
  *
  * @author elkin
  */
-public class MenuViajes extends javax.swing.JFrame {
+public class MenuViajes extends VentanaAnimada {
 
     private DefaultComboBoxModel bmxModel;
     private GestorDatos gestor;
@@ -35,13 +33,10 @@ public class MenuViajes extends javax.swing.JFrame {
      */
     public MenuViajes() {
         this.gestor = GestorDatos.iniciaGestor();
-        setUndecorated(true);
         initComponents();
         setBmx();
         setLocationRelativeTo(null);
-        setOpacity(0f);
         interfazMejoras();
-        animarApertura();
 
     }
 
@@ -54,82 +49,33 @@ public class MenuViajes extends javax.swing.JFrame {
     }
 
     private void interfazMejoras() {
-        jPnl0.setBackground(new Color(173, 216, 230));
-        jBtnGuardar.setBackground(new Color(230, 230, 250));
-        jBtnGuardar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        jBtnGuardar.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                jBtnGuardar.setBackground(new Color(255, 241, 150));
-            }
+        jPnl0.setBackground(new Color(173, 216, 230)); // Fondo general
 
-            public void mouseExited(MouseEvent evt) {
-                jBtnGuardar.setBackground(new Color(230, 230, 250));
-            }
-        });
+        // Animación de hover sobre el botón GUARDAR
+        aplicarHoverBoton(jBtnGuardar, new Color(230, 230, 250), new Color(255, 241, 150));
 
+        // Animación sobre el TÍTULO jLblSalida
+        aplicarHoverZoom(
+                jLblSalida,
+                4,
+                new Font("Imprint MT Shadow", Font.BOLD, 55),
+                new Font("Imprint MT Shadow", Font.BOLD, 59),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
+
+        // Efecto de zoom sobre la imagen (manualmente, porque no es texto)
         jLblImagen.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent evt) {
-                jLblImagen.setSize(jLblImagen.getWidth() + 10, jLblImagen.getHeight() + 10); // crece
+                jLblImagen.setSize(jLblImagen.getWidth() + 10, jLblImagen.getHeight() + 10);
             }
-
-            public void mouseExited(MouseEvent evt) {
-                jLblImagen.setSize(jLblImagen.getWidth() - 10, jLblImagen.getHeight() - 10); // vuelve
-            }
-        });
-
-        jLblSalida.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                jLblSalida.setFont(new Font("Imprint MT Shadow", Font.BOLD, 59)); // crece
-                jLblSalida.setForeground(new Color(255, 204, 0)); // color dorado
-            }
-
-            public void mouseExited(MouseEvent evt) {
-                jLblSalida.setFont(new Font("Imprint MT Shadow", Font.BOLD, 55)); // original
-                jLblSalida.setForeground(Color.BLACK);
-            }
-        });
-    }
-
-    private void animarApertura() {
-        Timer timer = new Timer(20, null);
-        timer.addActionListener(new ActionListener() {
-            float opacidad = 0f;
 
             @Override
-            public void actionPerformed(ActionEvent e) {
-                opacidad += 0.05f;
-                if (opacidad >= 1f) {
-                    opacidad = 1f;
-                    timer.stop();
-                }
-                setOpacity(opacidad);
+            public void mouseExited(MouseEvent evt) {
+                jLblImagen.setSize(jLblImagen.getWidth() - 10, jLblImagen.getHeight() - 10);
             }
         });
-        timer.start();
-    }
-
-    private void animarCierre(Runnable despuesDeCerrar) {
-        Timer timer = new Timer(20, null);
-        timer.addActionListener(new ActionListener() {
-            float opacidad = 1f;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                opacidad -= 0.05f;
-                if (opacidad <= 0f) {
-                    opacidad = 0f;
-                    ((Timer) e.getSource()).stop();
-                    setOpacity(opacidad);
-                    dispose();
-                    if (despuesDeCerrar != null) {
-                        despuesDeCerrar.run(); // Ejecuta lo que sigue
-                    }
-                } else {
-                    setOpacity(opacidad);
-                }
-            }
-        });
-        timer.start();
     }
 
     private LocalDateTime parseDateTimeInicio() {
