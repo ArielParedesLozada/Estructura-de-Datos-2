@@ -2,24 +2,26 @@ package Entidades;
 
 import java.time.LocalDateTime;
 
+import Entidades.Vehiculos.Vehiculo;
+
 public class Salida {
 
     public String destino;
     public LocalDateTime horaSalida;
     public LocalDateTime horaLlegada;
-    public Bus bus;
+    protected Vehiculo vehiculo;
     public Asientos asientos;
 
-    public Salida(String destino, LocalDateTime horaS, LocalDateTime horaL, Bus bus) {
+    public Salida(String destino, LocalDateTime horaS, LocalDateTime horaL, Vehiculo vehiculo) {
         this.destino = destino;
-        this.bus = bus;
+        this.vehiculo = vehiculo;
         this.horaSalida = horaS;
         this.horaLlegada = horaL;
         this.asientos = new Asientos(this);
     }
 
-    public boolean comparaBusHorario(Salida s) {
-        return this.bus.equals(s.bus) && this.horaSalida.isBefore(s.horaLlegada)
+    public boolean comparaVehiculoHorario(Salida s) {
+        return this.vehiculo.equals(s.vehiculo) && this.horaSalida.isBefore(s.horaLlegada)
                 && this.horaLlegada.isAfter(s.horaSalida);
     }
 
@@ -27,8 +29,8 @@ public class Salida {
         return !horaSalida.isBefore(t1) && !horaLlegada.isAfter(t2);
     }
 
-    public String getIDBus() {
-        return this.bus.id;
+    public String getIDVehiculo() {
+        return this.vehiculo.getID();
     }
 
     @Override
@@ -36,7 +38,7 @@ public class Salida {
         return "destino: " + this.destino
                 + ", horaSalida: " + this.horaSalida
                 + ", horaLlegada: " + this.horaLlegada
-                + ", bus ID: " + this.bus.id;
+                + ", Vehiculo ID: " + this.vehiculo.getID();
     }
 
     @Override
@@ -45,7 +47,7 @@ public class Salida {
             return true;
         }
         if (obj instanceof Salida) {
-            return ((Salida) obj).bus == this.bus &&
+            return ((Salida) obj).vehiculo == this.vehiculo &&
                     ((Salida) obj).horaLlegada == this.horaLlegada &&
                     ((Salida) obj).horaSalida == this.horaSalida &&
                     ((Salida) obj).destino.equals(this.destino);

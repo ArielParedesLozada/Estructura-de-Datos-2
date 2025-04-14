@@ -4,10 +4,12 @@
  */
 package Vistas;
 
-import Cooperativa.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
-import Entidades.Bus;
 import Entidades.Salida;
+import Entidades.Vehiculos.Bus;
+import Entidades.Vehiculos.Vehiculo;
+import Vistas.BaseUI.VentanaAnimada;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -24,7 +26,7 @@ import javax.swing.JOptionPane;
  */
 public class MenuViajes extends VentanaAnimada {
 
-    private DefaultComboBoxModel bmxModel;
+    private DefaultComboBoxModel<String> bmxModel;
     private GestorDatos gestor;
 
     /**
@@ -41,8 +43,8 @@ public class MenuViajes extends VentanaAnimada {
 
     private void setBmx() {
         this.bmxModel = new DefaultComboBoxModel<>();
-        for (Bus bus : this.gestor.gestorBuses.buses) {
-            this.bmxModel.addElement(bus.id);
+        for (Vehiculo bus : this.gestor.gestorBuses.vehiculos) {
+            this.bmxModel.addElement(bus.getID());
         }
         this.jBmxBus.setModel(bmxModel);
     }
@@ -95,13 +97,13 @@ public class MenuViajes extends VentanaAnimada {
         return fecha.atTime(hora);
     }
 
-    private Bus selectBus() {
+    private Vehiculo selectBus() {
         String id = (String) this.jBmxBus.getSelectedItem();
         if (id == null) {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado un bus.");
             return null; // Retorna null para evitar seguir adelante con valores no válidos.
         }
-        Bus bus = this.gestor.gestorBuses.buses.find(id);
+        Vehiculo bus = this.gestor.gestorBuses.vehiculos.find(id);
         if (bus == null) {
             JOptionPane.showMessageDialog(null, "El bus seleccionado no existe.");
         }
@@ -252,53 +254,41 @@ public class MenuViajes extends VentanaAnimada {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
-        try {
-            // Obtén el destino y las horas de salida y llegada del viaje.
-            String busId = (String) jBmxBus.getSelectedItem();
-            if (busId.equals("Seleccione un Bus")) {
-                JOptionPane.showMessageDialog(null, "Por favor, selecciona un bus.");
-                return;
-            }
-
-            String destino = this.jTxtDestino.getText();
-            LocalDateTime horaSalida = parseDateTimeInicio(); // Utiliza jBmxHoraSalida
-            LocalDateTime horaLlegada = parseDateTimeFinal(); // Utiliza jBmxHoraLlegada
-
-            // Verifica que las fechas y horas estén correctamente establecidas.
-            if (horaSalida == null || horaLlegada == null || horaSalida.isAfter(horaLlegada)) {
-                JOptionPane.showMessageDialog(null, "Por favor, verifica que las fechas y horas estén correctas y que la hora de salida sea antes de la hora de llegada.");
-                return;
-            }
-            if (horaSalida.isEqual(horaLlegada)) {
-                JOptionPane.showMessageDialog(null, "La hora de salida y de llegada no pueden ser iguales.");
-                return;
-            } else if (horaSalida.isAfter(horaLlegada)) {
-                JOptionPane.showMessageDialog(null, "La hora de salida debe ser antes de la hora de llegada.");
-                return;
-            } else if (horaLlegada.minusHours(1).isBefore(horaSalida)) {
-                JOptionPane.showMessageDialog(null, "La salida y llegada deben tener al menos una hora de diferencia.");
-                return;
-            }
-
-            // Selecciona el bus y verifica su validez.
-            Bus bus = selectBus(); // Utiliza el método selectBus
-            if (bus == null) {
-                JOptionPane.showMessageDialog(null, "Por favor, selecciona un bus válido.");
-                return;
-            }
-            Salida nuevaSalida = new Salida(destino, horaSalida, horaLlegada, bus);
-
-            // Verifica si se puede añadir la nueva salida sin conflictos de horario.
-            if (!this.gestor.gestorSalidas.addSalida(nuevaSalida)) {
-                JOptionPane.showMessageDialog(null, "Ya existe un viaje programado para este bus en el rango horario especificado.");
-                return;
-            }
-
-            // Confirma que la nueva salida se ha añadido correctamente.
-            JOptionPane.showMessageDialog(null, "La salida ha sido añadida exitosamente.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se pudo crear la salida: ");
+        String busId = (String) jBmxBus.getSelectedItem();
+        if (busId.equals("Seleccione un Bus")) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona un bus.");
+            return;
         }
+        String destino = this.jTxtDestino.getText();
+        LocalDateTime horaSalida = parseDateTimeInicio(); // Utiliza jBmxHoraSalida
+        LocalDateTime horaLlegada = parseDateTimeFinal(); // Utiliza jBmxHoraLlegada
+        if (horaSalida == null || horaLlegada == null || horaSalida.isAfter(horaLlegada)) {
+            JOptionPane.showMessageDialog(null, "Por favor, verifica que las fechas y horas estén correctas y que la hora de salida sea antes de la hora de llegada.");
+            return;
+        }
+        if (horaSalida.isEqual(horaLlegada)) {
+            JOptionPane.showMessageDialog(null, "La hora de salida y de llegada no pueden ser iguales.");
+            return;
+        } else if (horaSalida.isAfter(horaLlegada)) {
+            JOptionPane.showMessageDialog(null, "La hora de salida debe ser antes de la hora de llegada.");
+            return;
+        } else if (horaLlegada.minusHours(1).isBefore(horaSalida)) {
+            JOptionPane.showMessageDialog(null, "La salida y llegada deben tener al menos una hora de diferencia.");
+            return;
+        }
+        Vehiculo bus = selectBus(); // Utiliza el método selectBus
+        if (bus == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona un bus válido.");
+            return;
+        }
+        Salida nuevaSalida = new Salida(destino, horaSalida, horaLlegada, bus);
+
+        // Verifica si se puede añadir la nueva salida sin conflictos de horario.
+        if (!this.gestor.gestorSalidas.addSalida(nuevaSalida)) {
+            JOptionPane.showMessageDialog(null, "Ya existe un viaje programado para este bus en el rango horario especificado.");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, "La salida ha sido añadida exitosamente.");
     }//GEN-LAST:event_jBtnGuardarActionPerformed
 
 

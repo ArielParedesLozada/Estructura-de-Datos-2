@@ -4,9 +4,11 @@
  */
 package Vistas;
 
-import Cooperativa.BaseUI.VentanaAnimada;
+import Entidades.Vehiculos.Bus;
+import Entidades.Vehiculos.Vehiculo;
+import Vistas.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
-import Entidades.Bus;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -201,15 +203,16 @@ public class MenuBuses extends VentanaAnimada {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
-        Bus bus = null;
-        try {
-            String idBus = this.jTxtID.getText().trim();
-            String numStr = this.jTxtNum.getText().trim();
+        
+        Vehiculo bus = null;
+        String idBus = this.jTxtID.getText().trim();
+        String numStr = this.jTxtNum.getText().trim();
+        if (idBus.isEmpty() || numStr.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe llenar ambos campos para crear el bus.");
+            return;
             // Verifica si alguno de los campos está vacío
-            if (idBus.isEmpty() || numStr.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Debe llenar ambos campos para crear el bus.");
-                return;
-            }
+        }
+        try {
             int num = Integer.parseInt(numStr);
             bus = new Bus(idBus, num);
         } catch (NumberFormatException e) {

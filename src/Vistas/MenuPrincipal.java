@@ -4,10 +4,11 @@
  */
 package Vistas;
 
-import Cooperativa.BaseUI.VentanaAnimada;
 import Vistas.MenuBuses;
 import Vistas.MenuInforme;
 import Vistas.MenuViajes;
+import Vistas.BaseUI.VentanaAnimada;
+
 import java.awt.Color;
 import java.awt.Font;
 

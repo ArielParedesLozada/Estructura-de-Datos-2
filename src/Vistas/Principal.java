@@ -4,9 +4,10 @@
  */
 package Vistas;
 
-import Cooperativa.BaseUI.VentanaAnimada;
 import java.awt.Color;
 import java.awt.Font;
+
+import Vistas.BaseUI.VentanaAnimada;
 
 /**
  *
