@@ -7,12 +7,16 @@ package Vistas;
 import Vistas.MenuBuses;
 import Vistas.MenuInforme;
 import Vistas.MenuViajes;
+import Vistas.BaseUI.VentanaAnimada;
+
+import java.awt.Color;
+import java.awt.Font;
 
 /**
  *
  * @author elkin
  */
-public class MenuPrincipal extends javax.swing.JFrame {
+public class MenuPrincipal extends VentanaAnimada {
 
     /**
      * Creates new form MenuPrincipal
@@ -20,6 +24,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
+        interfazMejoras();
+    }
+
+    private void interfazMejoras() {
+        // Fondo general
+        jPnl0.setBackground(new Color(173, 216, 230)); // Azul claro
+
+        // Botones con hover
+        aplicarHoverBoton(jBtnBoletos, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnBuses, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnInformes, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnSalidas, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnSalir, new Color(255, 200, 200), new Color(255, 100, 100)); // botón salir más rojo
+
+        // Título con zoom y color
+        aplicarHoverZoom(
+                jLblMenu,
+                4,
+                new Font("Arial Black", Font.BOLD, 51),
+                new Font("Arial Black", Font.BOLD, 54),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
     }
 
     /**
@@ -156,7 +183,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnBoletosActionPerformed
 
     private void jBtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalirActionPerformed
-        System.exit(0);
+        animarCierre(() -> System.exit(0));
     }//GEN-LAST:event_jBtnSalirActionPerformed
 
     /**

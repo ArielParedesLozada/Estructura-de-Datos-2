@@ -4,15 +4,22 @@
  */
 package Vistas;
 
+import Entidades.Vehiculos.Bus;
+import Entidades.Vehiculos.Vehiculo;
+import Vistas.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
-import Entidades.Bus;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author elkin
  */
-public class MenuBuses extends javax.swing.JFrame {
+public class MenuBuses extends VentanaAnimada {
 
     protected GestorDatos gestor;
 
@@ -23,7 +30,40 @@ public class MenuBuses extends javax.swing.JFrame {
         this.gestor = GestorDatos.iniciaGestor();
         initComponents();
         this.setLocationRelativeTo(null);
+        interfazMejoras();
 
+    }
+
+    private void interfazMejoras() {
+        // Fondo bonito
+        JPanel.setBackground(new Color(173, 216, 230)); // Azul cielo
+
+        // Botón Guardar (amarillo pastel al pasar el mouse)
+        aplicarHoverBoton(jBtnGuardar, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(255, 200, 200), new Color(255, 100, 100));
+
+        // Animación de zoom y cambio de color en el título
+        aplicarHoverZoom(
+                jLblBuses,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
+
+        // Imagen que crece y se encoge al pasar el mouse
+        jLblBus.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                jLblBus.setSize(jLblBus.getWidth() + 10, jLblBus.getHeight() + 10);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                jLblBus.setSize(jLblBus.getWidth() - 10, jLblBus.getHeight() - 10);
+            }
+        });
     }
 
     /**
@@ -163,15 +203,16 @@ public class MenuBuses extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
-        Bus bus = null;
-        try {
-            String idBus = this.jTxtID.getText().trim();
-            String numStr = this.jTxtNum.getText().trim();
+        
+        Vehiculo bus = null;
+        String idBus = this.jTxtID.getText().trim();
+        String numStr = this.jTxtNum.getText().trim();
+        if (idBus.isEmpty() || numStr.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe llenar ambos campos para crear el bus.");
+            return;
             // Verifica si alguno de los campos está vacío
-            if (idBus.isEmpty() || numStr.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Debe llenar ambos campos para crear el bus.");
-                return;
-            }
+        }
+        try {
             int num = Integer.parseInt(numStr);
             bus = new Bus(idBus, num);
         } catch (NumberFormatException e) {
@@ -181,7 +222,7 @@ public class MenuBuses extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se pudo crear el bus");
             return;
         }
-        if (!this.gestor.addBus(bus)) {
+        if (!this.gestor.gestorBuses.addBus(bus)) {
             JOptionPane.showMessageDialog(null, "No se pudo añadir el bus, puede que ya exista un bus con ese identificador.");
             return;
         }
@@ -189,9 +230,7 @@ public class MenuBuses extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnGuardarActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
-        this.dispose();
+        animarCierre(() -> new MenuPrincipal().setVisible(true));
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     private void jTxtNumKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtNumKeyTyped

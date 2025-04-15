@@ -6,13 +6,19 @@ package Vistas;
 
 import Cooperativa.GestorDatos;
 import Entidades.Salida;
+import Vistas.BaseUI.VentanaAnimada;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author elkin
  */
-public class InformeBuses extends javax.swing.JFrame {
+public class InformeBuses extends VentanaAnimada {
 
     private GestorDatos gestor;
 
@@ -23,6 +29,38 @@ public class InformeBuses extends javax.swing.JFrame {
         this.gestor = GestorDatos.iniciaGestor();
         initComponents();
         this.setLocationRelativeTo(null);
+        interfazMejoras();
+    }
+    
+    private void interfazMejoras() {
+        // Fondo azul claro
+        jPnl0.setBackground(new Color(173, 216, 230));
+
+        // Botones con hover (aunque algunos estén deshabilitados al inicio)
+        aplicarHoverBoton(jBtnBus, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(230, 230, 250), new Color(255, 241, 150));
+
+        // Título animado
+        aplicarHoverZoom(
+                jLblBuses,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
+        
+        jLabel2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                jLabel2.setSize(jLabel2.getWidth() + 10, jLabel2.getHeight() + 10);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                jLabel2.setSize(jLabel2.getWidth() - 10, jLabel2.getHeight() - 10);
+            }
+        });
     }
 
     //Da el promedio de las ocupacion de un bus 
@@ -30,13 +68,13 @@ public class InformeBuses extends javax.swing.JFrame {
     private float getPromedioBus(String bus) {
         int i = 0;
         float sum = 0;
-        for (Salida salida : this.gestor.salidas) {
-            if (salida.getIDBus().equals(bus)) {
-                sum += salida.getPromedio();
+        for (Salida salida : this.gestor.gestorSalidas.salidas) {
+            if (salida.getIDVehiculo().equals(bus)) {
+                sum += salida.asientos.getPromedio();
                 i++;
             }
         }
-        return (i > 0 ) ? (float) sum/i : -1;
+        return (i > 0) ? (float) sum / i : -1;
     }
 
     /**
@@ -152,22 +190,16 @@ public class InformeBuses extends javax.swing.JFrame {
 
     private void jBtnBusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBusActionPerformed
         String bus = this.jTxtBusID.getText();
-        try {
-            float promedio = getPromedioBus(bus);
-            if (promedio < 0) {
-                JOptionPane.showMessageDialog(null, "No existen salidas regsitradas para el bus");
-                return;
-            }
-            this.jLblNum.setText(Float.toString(promedio)+" %");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un problema al buscar el promedio");
+        float promedio = getPromedioBus(bus);
+        if (promedio < 0) {
+            JOptionPane.showMessageDialog(null, "No existen salidas regsitradas para el bus");
+            return;
         }
+        this.jLblNum.setText(Float.toString(promedio) + " %");
     }//GEN-LAST:event_jBtnBusActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        MenuInforme menu = new MenuInforme();
-        menu.setVisible(true);
-        this.dispose();
+        animarCierre(() -> new MenuInforme().setVisible(true));
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     /**

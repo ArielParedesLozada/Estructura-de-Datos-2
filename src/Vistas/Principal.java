@@ -4,11 +4,16 @@
  */
 package Vistas;
 
+import java.awt.Color;
+import java.awt.Font;
+
+import Vistas.BaseUI.VentanaAnimada;
+
 /**
  *
  * @author elkin
  */
-public class Principal extends javax.swing.JFrame {
+public class Principal extends VentanaAnimada {
 
     /**
      * Creates new form MenuPrincipal
@@ -16,6 +21,31 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
+        interfazMejoras();
+    }
+
+    private void interfazMejoras() {
+
+        // Botón Guardar (amarillo pastel al pasar el mouse)
+        aplicarHoverBoton(jBtnEmpezar, new Color(230, 230, 250), new Color(255, 241, 150));
+
+        // Animación de zoom y cambio de color en el título
+        aplicarHoverZoom(
+                jLabel5,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.CYAN,
+                new Color(255, 204, 0)
+        );
+        aplicarHoverZoom(
+                jLabel4,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.CYAN,
+                new Color(255, 204, 0)
+        );
     }
 
     /**
@@ -63,9 +93,9 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEmpezarActionPerformed
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
-        this.dispose();
+        animarCierre(() -> {
+            new MenuPrincipal().setVisible(true);
+        });
     }//GEN-LAST:event_jBtnEmpezarActionPerformed
 
     /**

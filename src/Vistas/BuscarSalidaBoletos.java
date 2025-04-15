@@ -5,8 +5,13 @@
 package Vistas;
 
 import Cooperativa.GestorDatos;
-import Entidades.Persona;
 import Entidades.Salida;
+import Entidades.Pasajeros.Pasajero;
+import Entidades.Pasajeros.Persona;
+import Vistas.BaseUI.VentanaAnimada;
+
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -14,15 +19,15 @@ import javax.swing.JOptionPane;
  *
  * @author elkin
  */
-public class BuscarSalidaBoletos extends javax.swing.JFrame {
+public class BuscarSalidaBoletos extends VentanaAnimada {
 
     private GestorDatos gestor;
-    private Persona persona;
+    private Pasajero persona;
 
     /**
      * Creates new form BuscarSalidaBoletos
      */
-    public BuscarSalidaBoletos(Persona p) {
+    public BuscarSalidaBoletos(Pasajero p) {
         this.gestor = GestorDatos.iniciaGestor();
         this.persona = p;
         initComponents();
@@ -32,6 +37,26 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
         this.jBmxSalida.setEnabled(false);
         this.jBtnGuardar.setEnabled(false);
         setDestinos();
+        interfazMejoras();
+    }
+
+    private void interfazMejoras() {
+        // Fondo azul claro
+        jPnl0.setBackground(new Color(173, 216, 230));
+
+        // Botones con hover (aunque algunos estén deshabilitados al inicio)
+        aplicarHoverBoton(jBtnGuardar, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(230, 230, 250), new Color(255, 241, 150));
+
+        // Título animado
+        aplicarHoverZoom(
+                jLblCompra,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
     }
 
     public BuscarSalidaBoletos() {
@@ -57,7 +82,7 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
     //Setea la tabla de salidas con las columnas iniciales
     private void setSalidas(String destino) {
         DefaultComboBoxModel jBmxModelSalidas = new DefaultComboBoxModel<>();
-        for (Salida salida : this.gestor.salidas) {
+        for (Salida salida : this.gestor.gestorSalidas.salidas) {
             if (salida.destino.equals(destino)) {
                 jBmxModelSalidas.addElement(salida.toString());
             }
@@ -68,13 +93,13 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
     //Devuelve la salida seleccionada una vez se tiene el 
     private Salida getSelectedSalida() {
         String salida = (String) this.jBmxSalida.getSelectedItem();
-        return this.gestor.salidas.find(salida);//Se utiliza el otro sistema para buscar
+        return this.gestor.gestorSalidas.salidas.find(salida);//Se utiliza el otro sistema para buscar
     }
 
     //Setea el comboBox de los asientos dado 
     private void setAsientos(Salida salida) {
         DefaultComboBoxModel jBmxModelAsientos = new DefaultComboBoxModel<>();
-        for (int asiento : salida.asientosDisponibles()) {
+        for (int asiento : salida.asientos.asientosDisponibles()) {
             jBmxModelAsientos.addElement(asiento);
         }
         this.jBmxAsiento.setModel(jBmxModelAsientos);
@@ -238,11 +263,11 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
         try {
             int asiento = (int) this.jBmxAsiento.getSelectedItem();
             Salida salida = getSelectedSalida();
-            if (!salida.addPasajeroAt(asiento, this.persona)) {
+            if (!salida.asientos.addPasajeroAt(asiento, this.persona)) {
                 JOptionPane.showMessageDialog(null, "No se pudo añadir la persona a la salida");
                 return;
             }
-            if (!this.gestor.addBoleto(this.persona, salida)) {
+            if (!this.gestor.gestorRegistro.addBoleto(this.persona, salida)) {
                 JOptionPane.showMessageDialog(null, "No se pudo añadir la salida al resgitro");
                 return;
             }
@@ -255,9 +280,7 @@ public class BuscarSalidaBoletos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnGuardarActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        MenuBoletos menuboletos = new MenuBoletos();
-        menuboletos.setVisible(true);
-        this.dispose();
+        animarCierre(() -> new MenuBoletos().setVisible(true));
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     private void jBmxSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmxSalidaActionPerformed

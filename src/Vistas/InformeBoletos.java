@@ -6,6 +6,10 @@ package Vistas;
 
 import Cooperativa.GestorDatos;
 import Entidades.Salida;
+import Vistas.BaseUI.VentanaAnimada;
+
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author elkin
  */
-public class InformeBoletos extends javax.swing.JFrame {
+public class InformeBoletos extends VentanaAnimada {
 
     private GestorDatos gestor;
 
@@ -24,6 +28,39 @@ public class InformeBoletos extends javax.swing.JFrame {
         this.gestor = GestorDatos.iniciaGestor();
         initComponents();
         this.setLocationRelativeTo(null);
+        interfazMejoras();
+    }
+
+    private void interfazMejoras() {
+        // Fondo suave 
+        jPanel1.setBackground(new Color(173, 216, 230));
+
+        // Hover para botones
+        aplicarHoverBoton(jBtnBuscar, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(230, 230, 250), new Color(255, 241, 150));
+
+        // Animación para el título
+        aplicarHoverZoom(
+                jLabel1,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
+
+        // Imagen: efecto zoom suave
+        jLblPersonas.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLblPersonas.setSize(jLblPersonas.getWidth() + 10, jLblPersonas.getHeight() + 10);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLblPersonas.setSize(jLblPersonas.getWidth() - 10, jLblPersonas.getHeight() - 10);
+            }
+        });
     }
 
     //Método para obtener las salidas del registro y setear la tabla. Eficiente
@@ -33,8 +70,8 @@ public class InformeBoletos extends javax.swing.JFrame {
         tblModel.addColumn("Destino");
         tblModel.addColumn("Hora salida");
         tblModel.addColumn("Hora Llegada");
-        for (Salida salida : this.gestor.registro.getValues(id)) {//Se busac en la tablaHash del registro. Tiene al usuario y sus salidas asociadas
-            tblModel.addRow(new Object[]{salida.getIDBus(), salida.destino, salida.horaSalida.toString(), salida.horaLlegada.toString()});
+        for (Salida salida : this.gestor.gestorRegistro.registro.getValues(id)) {//Se busac en la tablaHash del registro. Tiene al usuario y sus salidas asociadas
+            tblModel.addRow(new Object[]{salida.getIDVehiculo(), salida.destino, salida.horaSalida.toString(), salida.horaLlegada.toString()});
         }
         this.jTblPersonas.setModel(tblModel);
     }
@@ -195,7 +232,7 @@ public class InformeBoletos extends javax.swing.JFrame {
         String pasajeroID = jTxtID.getText().trim(); // Obtiene el ID del pasajero
         try {
             setTable(pasajeroID);
-            int total = this.gestor.registro.sizeValues(pasajeroID);
+            int total = this.gestor.gestorRegistro.registro.sizeValues(pasajeroID);
             this.jLblNum.setText(Integer.toString(total));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Id no registrado");
@@ -203,9 +240,7 @@ public class InformeBoletos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnBuscarActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        MenuInforme menu = new MenuInforme();
-        menu.setVisible(true);
-        this.dispose();
+        animarCierre(() -> new MenuInforme().setVisible(true));
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     private void jTxtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtIDKeyTyped
@@ -247,9 +282,7 @@ public class InformeBoletos extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
         //</editor-fold>
-
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

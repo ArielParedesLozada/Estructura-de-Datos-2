@@ -5,8 +5,15 @@
 package Vistas;
 
 import Cooperativa.GestorDatos;
-import Entidades.Bus;
 import Entidades.Salida;
+import Entidades.Vehiculos.Bus;
+import Entidades.Vehiculos.Vehiculo;
+import Vistas.BaseUI.VentanaAnimada;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -17,9 +24,9 @@ import javax.swing.JOptionPane;
  *
  * @author elkin
  */
-public class MenuViajes extends javax.swing.JFrame {
+public class MenuViajes extends VentanaAnimada {
 
-    private DefaultComboBoxModel bmxModel;
+    private DefaultComboBoxModel<String> bmxModel;
     private GestorDatos gestor;
 
     /**
@@ -30,14 +37,44 @@ public class MenuViajes extends javax.swing.JFrame {
         initComponents();
         setBmx();
         setLocationRelativeTo(null);
+        interfazMejoras();
+
     }
 
     private void setBmx() {
         this.bmxModel = new DefaultComboBoxModel<>();
-        for (Bus bus : this.gestor.buses) {
-            this.bmxModel.addElement(bus.id);
+        for (Vehiculo bus : this.gestor.gestorBuses.vehiculos) {
+            this.bmxModel.addElement(bus.getID());
         }
         this.jBmxBus.setModel(bmxModel);
+    }
+
+    private void interfazMejoras() {
+        jPnl0.setBackground(new Color(173, 216, 230)); 
+
+        aplicarHoverBoton(jBtnGuardar, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(255, 200, 200), new Color(255, 100, 100));
+
+        aplicarHoverZoom(
+                jLblSalida,
+                4,
+                new Font("Imprint MT Shadow", Font.BOLD, 55),
+                new Font("Imprint MT Shadow", Font.BOLD, 59),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
+
+        jLblImagen.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                jLblImagen.setSize(jLblImagen.getWidth() + 10, jLblImagen.getHeight() + 10);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                jLblImagen.setSize(jLblImagen.getWidth() - 10, jLblImagen.getHeight() - 10);
+            }
+        });
     }
 
     private LocalDateTime parseDateTimeInicio() {
@@ -60,13 +97,13 @@ public class MenuViajes extends javax.swing.JFrame {
         return fecha.atTime(hora);
     }
 
-    private Bus selectBus() {
+    private Vehiculo selectBus() {
         String id = (String) this.jBmxBus.getSelectedItem();
         if (id == null) {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado un bus.");
             return null; // Retorna null para evitar seguir adelante con valores no válidos.
         }
-        Bus bus = this.gestor.buses.find(id);
+        Vehiculo bus = this.gestor.gestorBuses.vehiculos.find(id);
         if (bus == null) {
             JOptionPane.showMessageDialog(null, "El bus seleccionado no existe.");
         }
@@ -145,6 +182,7 @@ public class MenuViajes extends javax.swing.JFrame {
         });
 
         jBtnGuardar.setBackground(new java.awt.Color(255, 255, 204));
+        jBtnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBtnGuardar.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 24)); // NOI18N
         jBtnGuardar.setLabel("GUARDAR");
         jBtnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -205,7 +243,7 @@ public class MenuViajes extends javax.swing.JFrame {
                 .addGroup(jPnl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLblHoraLlegada)
                     .addComponent(jBmxHoraLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -216,60 +254,49 @@ public class MenuViajes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
-        try {
-            // Obtén el destino y las horas de salida y llegada del viaje.
-            String busId = (String) jBmxBus.getSelectedItem();
-            if (busId.equals("Seleccione un Bus")) {
-                JOptionPane.showMessageDialog(null, "Por favor, selecciona un bus.");
-                return;
-            }
-
-            String destino = this.jTxtDestino.getText();
-            LocalDateTime horaSalida = parseDateTimeInicio(); // Utiliza jBmxHoraSalida
-            LocalDateTime horaLlegada = parseDateTimeFinal(); // Utiliza jBmxHoraLlegada
-
-            // Verifica que las fechas y horas estén correctamente establecidas.
-            if (horaSalida == null || horaLlegada == null || horaSalida.isAfter(horaLlegada)) {
-                JOptionPane.showMessageDialog(null, "Por favor, verifica que las fechas y horas estén correctas y que la hora de salida sea antes de la hora de llegada.");
-                return;
-            }
-            if (horaSalida.isEqual(horaLlegada)) {
-                JOptionPane.showMessageDialog(null, "La hora de salida y de llegada no pueden ser iguales.");
-                return;
-            } else if (horaSalida.isAfter(horaLlegada)) {
-                JOptionPane.showMessageDialog(null, "La hora de salida debe ser antes de la hora de llegada.");
-                return;
-            } else if (horaLlegada.minusHours(1).isBefore(horaSalida)) {
-                JOptionPane.showMessageDialog(null, "La salida y llegada deben tener al menos una hora de diferencia.");
-                return;
-            }
-
-            // Selecciona el bus y verifica su validez.
-            Bus bus = selectBus(); // Utiliza el método selectBus
-            if (bus == null) {
-                JOptionPane.showMessageDialog(null, "Por favor, selecciona un bus válido.");
-                return;
-            }
-            Salida nuevaSalida = new Salida(destino, horaSalida, horaLlegada, bus);
-
-            // Verifica si se puede añadir la nueva salida sin conflictos de horario.
-            if (!this.gestor.addSalida(nuevaSalida)) {
-                JOptionPane.showMessageDialog(null, "Ya existe un viaje programado para este bus en el rango horario especificado.");
-                return;
-            }
-
-            // Confirma que la nueva salida se ha añadido correctamente.
-            JOptionPane.showMessageDialog(null, "La salida ha sido añadida exitosamente.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se pudo crear la salida: ");
+        String busId = (String) jBmxBus.getSelectedItem();
+        if (busId.equals("Seleccione un Bus")) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona un bus.");
+            return;
         }
+        String destino = this.jTxtDestino.getText();
+        LocalDateTime horaSalida = parseDateTimeInicio(); // Utiliza jBmxHoraSalida
+        LocalDateTime horaLlegada = parseDateTimeFinal(); // Utiliza jBmxHoraLlegada
+        if (horaSalida == null || horaLlegada == null || horaSalida.isAfter(horaLlegada)) {
+            JOptionPane.showMessageDialog(null, "Por favor, verifica que las fechas y horas estén correctas y que la hora de salida sea antes de la hora de llegada.");
+            return;
+        }
+        if (horaSalida.isEqual(horaLlegada)) {
+            JOptionPane.showMessageDialog(null, "La hora de salida y de llegada no pueden ser iguales.");
+            return;
+        } else if (horaSalida.isAfter(horaLlegada)) {
+            JOptionPane.showMessageDialog(null, "La hora de salida debe ser antes de la hora de llegada.");
+            return;
+        } else if (horaLlegada.minusHours(1).isBefore(horaSalida)) {
+            JOptionPane.showMessageDialog(null, "La salida y llegada deben tener al menos una hora de diferencia.");
+            return;
+        }
+        Vehiculo bus = selectBus(); // Utiliza el método selectBus
+        if (bus == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona un bus válido.");
+            return;
+        }
+        Salida nuevaSalida = new Salida(destino, horaSalida, horaLlegada, bus);
+
+        // Verifica si se puede añadir la nueva salida sin conflictos de horario.
+        if (!this.gestor.gestorSalidas.addSalida(nuevaSalida)) {
+            JOptionPane.showMessageDialog(null, "Ya existe un viaje programado para este bus en el rango horario especificado.");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, "La salida ha sido añadida exitosamente.");
     }//GEN-LAST:event_jBtnGuardarActionPerformed
 
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
-        this.dispose();
+        animarCierre(() -> {
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.setVisible(true);
+        });
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     /**

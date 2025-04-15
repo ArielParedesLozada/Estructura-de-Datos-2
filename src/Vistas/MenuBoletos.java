@@ -4,14 +4,19 @@
  */
 package Vistas;
 
-import Entidades.Persona;
+import Entidades.Pasajeros.Pasajero;
+import Entidades.Pasajeros.Persona;
+import Vistas.BaseUI.VentanaAnimada;
+
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author elkin
  */
-public class MenuBoletos extends javax.swing.JFrame {
+public class MenuBoletos extends VentanaAnimada {
 
     /**
      * Creates new form MenuBoleto
@@ -19,13 +24,14 @@ public class MenuBoletos extends javax.swing.JFrame {
     public MenuBoletos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        interfazMejoras();
     }
 
     private boolean cedulaValida() {
         return this.jTxtID.getText().trim().length() == 10;
     }
 
-    private Persona getPersona() {
+    private Pasajero getPersona() {
         String id = this.jTxtID.getText().trim();
         String nombre = this.jTxtNombre.getText();
         String apellido = this.jTxtApellido.getText();
@@ -36,6 +42,38 @@ public class MenuBoletos extends javax.swing.JFrame {
             return null;
         }
         return persona;
+    }
+
+    private void interfazMejoras() {
+        // Fondo claro para el panel principal
+        jPnl0.setBackground(new Color(173, 216, 230)); // Azul claro
+
+        // Hover en botones
+        aplicarHoverBoton(jBtnBuscar, new Color(230, 230, 250), new Color(255, 241, 150));
+        aplicarHoverBoton(jBtnRegresar, new Color(230, 230, 250), new Color(255, 241, 150));
+
+        // Animación para el título
+        aplicarHoverZoom(
+                jLblCompra,
+                4,
+                new Font("Arial Black", Font.BOLD, 50),
+                new Font("Arial Black", Font.BOLD, 52),
+                Color.BLACK,
+                new Color(255, 204, 0)
+        );
+
+        // Efecto de zoom en la imagen
+        jLblImg.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLblImg.setSize(jLblImg.getWidth() + 10, jLblImg.getHeight() + 10);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLblImg.setSize(jLblImg.getWidth() - 10, jLblImg.getHeight() - 10);
+            }
+        });
     }
 
     /**
@@ -196,7 +234,7 @@ public class MenuBoletos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Por favor, completa los siguientes campos: " + mensajeError + ".", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Persona persona = getPersona();
+        Pasajero persona = getPersona();
         if (persona == null) {
             JOptionPane.showMessageDialog(this, "Error al crear la persona. Verifique la información proporcionada.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -207,9 +245,7 @@ public class MenuBoletos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnBuscarActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
-        this.dispose();
+         animarCierre(() -> new MenuPrincipal().setVisible(true));
     }//GEN-LAST:event_jBtnRegresarActionPerformed
 
     private void jTxtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtIDKeyTyped
