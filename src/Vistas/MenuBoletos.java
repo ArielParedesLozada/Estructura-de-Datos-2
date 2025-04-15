@@ -4,8 +4,10 @@
  */
 package Vistas;
 
-import Cooperativa.BaseUI.VentanaAnimada;
-import Entidades.Persona;
+import Entidades.Pasajeros.Pasajero;
+import Entidades.Pasajeros.Persona;
+import Vistas.BaseUI.VentanaAnimada;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JOptionPane;
@@ -29,7 +31,7 @@ public class MenuBoletos extends VentanaAnimada {
         return this.jTxtID.getText().trim().length() == 10;
     }
 
-    private Persona getPersona() {
+    private Pasajero getPersona() {
         String id = this.jTxtID.getText().trim();
         String nombre = this.jTxtNombre.getText();
         String apellido = this.jTxtApellido.getText();
@@ -232,7 +234,7 @@ public class MenuBoletos extends VentanaAnimada {
             JOptionPane.showMessageDialog(this, "Por favor, completa los siguientes campos: " + mensajeError + ".", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Persona persona = getPersona();
+        Pasajero persona = getPersona();
         if (persona == null) {
             JOptionPane.showMessageDialog(this, "Error al crear la persona. Verifique la información proporcionada.", "Error", JOptionPane.ERROR_MESSAGE);
             return;

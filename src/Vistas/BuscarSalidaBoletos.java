@@ -4,10 +4,12 @@
  */
 package Vistas;
 
-import Cooperativa.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
-import Entidades.Persona;
 import Entidades.Salida;
+import Entidades.Pasajeros.Pasajero;
+import Entidades.Pasajeros.Persona;
+import Vistas.BaseUI.VentanaAnimada;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
@@ -20,12 +22,12 @@ import javax.swing.JOptionPane;
 public class BuscarSalidaBoletos extends VentanaAnimada {
 
     private GestorDatos gestor;
-    private Persona persona;
+    private Pasajero persona;
 
     /**
      * Creates new form BuscarSalidaBoletos
      */
-    public BuscarSalidaBoletos(Persona p) {
+    public BuscarSalidaBoletos(Pasajero p) {
         this.gestor = GestorDatos.iniciaGestor();
         this.persona = p;
         initComponents();

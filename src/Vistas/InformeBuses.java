@@ -4,9 +4,10 @@
  */
 package Vistas;
 
-import Cooperativa.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
 import Entidades.Salida;
+import Vistas.BaseUI.VentanaAnimada;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -68,7 +69,7 @@ public class InformeBuses extends VentanaAnimada {
         int i = 0;
         float sum = 0;
         for (Salida salida : this.gestor.gestorSalidas.salidas) {
-            if (salida.getIDBus().equals(bus)) {
+            if (salida.getIDVehiculo().equals(bus)) {
                 sum += salida.asientos.getPromedio();
                 i++;
             }
@@ -189,16 +190,12 @@ public class InformeBuses extends VentanaAnimada {
 
     private void jBtnBusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBusActionPerformed
         String bus = this.jTxtBusID.getText();
-        try {
-            float promedio = getPromedioBus(bus);
-            if (promedio < 0) {
-                JOptionPane.showMessageDialog(null, "No existen salidas regsitradas para el bus");
-                return;
-            }
-            this.jLblNum.setText(Float.toString(promedio) + " %");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un problema al buscar el promedio");
+        float promedio = getPromedioBus(bus);
+        if (promedio < 0) {
+            JOptionPane.showMessageDialog(null, "No existen salidas regsitradas para el bus");
+            return;
         }
+        this.jLblNum.setText(Float.toString(promedio) + " %");
     }//GEN-LAST:event_jBtnBusActionPerformed
 
     private void jBtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegresarActionPerformed

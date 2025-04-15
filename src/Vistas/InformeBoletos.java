@@ -4,9 +4,10 @@
  */
 package Vistas;
 
-import Cooperativa.BaseUI.VentanaAnimada;
 import Cooperativa.GestorDatos;
 import Entidades.Salida;
+import Vistas.BaseUI.VentanaAnimada;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JOptionPane;
@@ -70,7 +71,7 @@ public class InformeBoletos extends VentanaAnimada {
         tblModel.addColumn("Hora salida");
         tblModel.addColumn("Hora Llegada");
         for (Salida salida : this.gestor.gestorRegistro.registro.getValues(id)) {//Se busac en la tablaHash del registro. Tiene al usuario y sus salidas asociadas
-            tblModel.addRow(new Object[]{salida.getIDBus(), salida.destino, salida.horaSalida.toString(), salida.horaLlegada.toString()});
+            tblModel.addRow(new Object[]{salida.getIDVehiculo(), salida.destino, salida.horaSalida.toString(), salida.horaLlegada.toString()});
         }
         this.jTblPersonas.setModel(tblModel);
     }

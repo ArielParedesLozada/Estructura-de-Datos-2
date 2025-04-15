@@ -4,8 +4,8 @@ import java.util.HashSet;
 
 import DataStructures.LinkedList;
 import DataStructures.TablaHash;
-import Entidades.Persona;
 import Entidades.Salida;
+import Entidades.Pasajeros.Pasajero;
 
 public class GestorRegistro {
     public TablaHash<String, Salida> registro;
@@ -14,8 +14,8 @@ public class GestorRegistro {
         this.registro = new TablaHash<>();
     }
 
-    public boolean addBoleto(Persona p, Salida s) {
-        return this.registro.addValue(p.id, s);
+    public boolean addBoleto(Pasajero p, Salida s) {
+        return this.registro.addValue(p.getID(), s);
     }
 
     public HashSet<String> getDestinos(LinkedList<Salida> salidas) {

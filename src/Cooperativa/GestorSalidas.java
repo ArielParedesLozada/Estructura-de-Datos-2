@@ -12,7 +12,7 @@ public class GestorSalidas {
 
     public boolean addSalida(Salida salida){
         for (Salida salda : this.salidas) {
-            if (salda.comparaBusHorario(salida)) {
+            if (salda.comparaVehiculoHorario(salida)) {
                 return false;
             }
         }

@@ -1,6 +1,6 @@
-package Entidades;
+package Entidades.Vehiculos;
 
-public class Bus {
+public class Bus implements Vehiculo {
 
     public String id;
     protected int capacidad;
@@ -21,5 +21,25 @@ public class Bus {
             return true;
         }
         return (obj instanceof Bus) ? this.id.equals(((Bus) obj).id) : this.id.equals(obj);
+    }
+
+    @Override
+    public int getCapacity() {
+        return this.capacidad;
+    }
+
+    @Override
+    public String getID() {
+        return this.id;
+    }
+
+    @Override
+    public boolean isEqual(Vehiculo vehiculo) {
+        return this.id.equals(vehiculo.getID());
+    }
+
+    @Override
+    public String getName() {
+        return this.id + ": " + this.capacidad;
     }
 }

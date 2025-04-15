@@ -3,13 +3,13 @@ package Cooperativa;
 import java.util.HashSet;
 
 public class GestorDatos {
-    public GestorBuses gestorBuses;
+    public GestorVehiculos gestorBuses;
     public GestorSalidas gestorSalidas;
     public GestorRegistro gestorRegistro;
     private static GestorDatos instance;
     
     private GestorDatos(){
-        this.gestorBuses = new GestorBuses();
+        this.gestorBuses = new GestorVehiculos();
         this.gestorSalidas = new GestorSalidas();
         this.gestorRegistro = new GestorRegistro();
     }
